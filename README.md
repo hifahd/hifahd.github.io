@@ -1,4 +1,4 @@
-# Fahd Ahmad's Portfolio Website
+# Fahd's Portfolio Website
 
 Welcome to the repository of my personal portfolio website! This site showcases my skills, experiences, and projects as a Software Engineering student and aspiring professional in the tech industry.
 
