@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,9 @@
     <title>Hey there, Fahd here!</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -24,46 +27,328 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-style: preserve-3d;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(59, 130, 246, 0.1);
+        }
+
+        .section-padding {
+            padding-top: 5rem;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            z-index: 9999;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        #scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        #scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .scroll-mt {
+            scroll-margin-top: 6rem;
+        }
+
+        .project-carousel {
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .project-carousel-inner {
+            display: flex;
+        }
+
+        .project-card {
+            flex: 0 0 100%;
+            padding: 1rem;
+            height: 600px;
+        }
+
+        @media (min-width: 640px) {
+            .project-card {
+                flex: 0 0 50%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .project-card {
+                flex: 0 0 33.333333%;
+            }
+        }
+
+        .project-card-inner {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(17, 24, 39, 0.9));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .project-card-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .project-card-inner:hover::before {
+            opacity: 1;
+        }
+
+        .project-card-description {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .project-card-description::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .project-card-description::-webkit-scrollbar-track {
+            background: #374151;
+            border-radius: 3px;
+        }
+
+        .project-card-description::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 3px;
+        }
+
+        .carousel-btn {
+            background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .carousel-btn:hover {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .achievement-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .achievement-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .achievement-list li::before {
+            content: "→";
+            color: #3b82f6;
+            font-size: 1.25em;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-list li:hover::before {
+            color: #8b5cf6;
+            transform: translateX(5px);
+        }
+
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(17, 24, 39, 0.9));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            transition: left 0.6s ease;
+        }
+
+        .skill-category:hover::before {
+            left: 100%;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .hero-bg {
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .profile-glow {
+            box-shadow:
+                0 0 50px rgba(59, 130, 246, 0.3),
+                0 0 100px rgba(59, 130, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .profile-glow:hover {
+            transform: scale(1.05);
+            box-shadow:
+                0 0 80px rgba(59, 130, 246, 0.4),
+                0 0 150px rgba(59, 130, 246, 0.2);
+        }
+    </style>
 </head>
 
-<body class="bg-gray-950 text-gray-100 font-body" id="top">
+<body class="bg-black text-gray-100 font-body" id="top">
     <div id="progress-bar"></div>
     <div id="scroll-to-top" class="hidden">
         <i class="fas fa-arrow-up"></i>
     </div>
-    <div class="animate-gradient bg-gradient-to-br from-gray-900 via-gray-800 to-gray-950 min-h-screen">
-        <header class="py-4 sticky top-0 bg-gray-950 bg-opacity-80 backdrop-filter backdrop-blur-lg z-50">
+
+    <div class="bg-black min-h-screen">
+
+        <header
+            class="py-4 sticky top-0 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg z-50 border-b border-gray-800/50">
             <nav class="container mx-auto px-4">
                 <div class="flex justify-between items-center">
-                    <a href="#top" class="text-2xl font-bold text-white">Fahd Ahmad</a>
+                    <a href="#top" class="text-2xl font-bold text-gradient">Fahd Ahmad</a>
                     <div class="md:hidden">
                         <button id="menu-toggle" class="text-white focus:outline-none">
                             <i class="fas fa-bars"></i>
                         </button>
                     </div>
                     <ul id="menu"
-                        class="hidden md:flex md:space-x-6 text-sm md:text-base absolute md:relative top-full left-0 right-0 bg-gray-950 md:bg-transparent flex-col md:flex-row items-center">
+                        class="hidden md:flex md:space-x-6 text-sm md:text-base absolute md:relative top-full left-0 right-0 bg-black/95 md:bg-transparent flex-col md:flex-row items-center backdrop-blur-lg">
                         <li><a href="#about"
-                                class="block py-2 px-4 text-gray-300 hover:text-white hover:underline transition duration-300">About</a>
+                                class="nav-link block py-2 px-4 text-gray-300 hover:text-white transition duration-300">About</a>
                         </li>
                         <li><a href="#experience"
-                                class="block py-2 px-4 text-gray-300 hover:text-white hover:underline transition duration-300">Experience</a>
+                                class="nav-link block py-2 px-4 text-gray-300 hover:text-white transition duration-300">Experience</a>
                         </li>
                         <li><a href="#education"
-                                class="block py-2 px-4 text-gray-300 hover:text-white hover:underline transition duration-300">Education</a>
+                                class="nav-link block py-2 px-4 text-gray-300 hover:text-white transition duration-300">Education</a>
                         </li>
                         <li><a href="#skills"
-                                class="block py-2 px-4 text-gray-300 hover:text-white hover:underline transition duration-300">Skills</a>
+                                class="nav-link block py-2 px-4 text-gray-300 hover:text-white transition duration-300">Skills</a>
                         </li>
                         <li><a href="#projects"
-                                class="block py-2 px-4 text-gray-300 hover:text-white hover:underline transition duration-300">Projects</a>
+                                class="nav-link block py-2 px-4 text-gray-300 hover:text-white transition duration-300">Projects</a>
                         </li>
                         <li><a href="#achievements"
-                                class="block py-2 px-4 text-gray-300 hover:text-white hover:underline transition duration-300">Achievements</a>
+                                class="nav-link block py-2 px-4 text-gray-300 hover:text-white transition duration-300">Achievements</a>
                         </li>
                         <li><a href="#contact"
-                                class="block py-2 px-4 text-gray-300 hover:text-white hover:underline transition duration-300">Contact</a>
+                                class="nav-link block py-2 px-4 text-gray-300 hover:text-white transition duration-300">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -71,24 +356,26 @@
         </header>
 
         <main class="container mx-auto px-6 md:px-12 lg:px-24 py-12">
-            <section id="about" class="mb-16 section-padding fade-in-section scroll-mt">
-                <div class="flex flex-col md:flex-row items-center justify-between">
-                    <div class="md:w-1/3 mb-8 md:mb-0">
+            <section id="about" class="mb-16 section-padding scroll-mt relative min-h-[85vh]">
+                <div class="hero-bg absolute inset-0 pointer-events-none"></div>
+                <div class="flex flex-col md:flex-row items-center justify-between relative z-10 pt-8">
+                    <div class="md:w-1/3 mb-8 md:mb-0 fade-in-left">
                         <img src="images/fahd.webp" alt="Fahd Ahmad"
-                            class="rounded-full w-64 h-64 mx-auto md:mx-0 shadow-lg">
+                            class="rounded-full w-64 h-64 mx-auto md:mx-0 profile-glow">
                     </div>
-                    <div class="md:w-2/3">
-                        <h1 class="text-4xl font-bold mb-4">Fahd Ahmad</h1>
-                        <p class="text-xl mb-6">Freelance Software Engineer | AI/ML Engineer | NUST Graduate</p>
-                        <p id="typed-description" class="text-gray-300"></p>
+                    <div class="md:w-2/3 fade-in-right">
+                        <h1 class="text-4xl font-bold mb-4 scale-in">Fahd Ahmad</h1>
+                        <p class="text-xl mb-6 fade-in-up" data-delay="100">Freelance Software Engineer | AI/ML Engineer
+                            | NUST Graduate</p>
+                        <p id="typed-description" class="text-gray-300 fade-in-up" data-delay="200"></p>
                     </div>
                 </div>
             </section>
 
-            <section id="experience" class="mb-16 section-padding fade-in-section scroll-mt">
-                <h2 class="text-3xl font-bold mb-8">💼 Professional Experience</h2>
+            <section id="experience" class="mb-16 section-padding scroll-mt">
+                <h2 class="text-3xl font-bold mb-8 fade-in-up">💼 Professional Experience</h2>
                 <div class="space-y-8">
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+                    <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-up" data-delay="100">
                         <h3 class="text-xl font-semibold mb-2">Software Engineer - Freelance</h3>
                         <p class="text-gray-400 mb-4">Oct 2024 - Present · Remote</p>
                         <ul class="achievement-list text-gray-300">
@@ -103,7 +390,7 @@
                                 IoT sensor integration across 6 fuel reservoirs</li>
                         </ul>
                     </div>
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+                    <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-up" data-delay="200">
                         <h3 class="text-xl font-semibold mb-2">Machine Learning Engineer Intern - nanoVoltz</h3>
                         <p class="text-gray-400 mb-4">Aug 2024 - Sep 2024 · Remote, Abu Dhabi</p>
                         <ul class="achievement-list text-gray-300">
@@ -122,7 +409,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+                    <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-up" data-delay="300">
                         <h3 class="text-xl font-semibold mb-2">Software Engineer Intern - ADNOC Group</h3>
                         <p class="text-gray-400 mb-4">Jun 2024 - Jul 2024 · On-site, Abu Dhabi</p>
                         <ul class="achievement-list text-gray-300">
@@ -138,31 +425,27 @@
                 </div>
             </section>
 
-            <section id="education" class="section mb-16 section-padding fade-in-section scroll-mt">
-                <h2 class="text-3xl font-bold mb-8">🎓 Educational Journey</h2>
-
+            <section id="education" class="section mb-16 section-padding scroll-mt">
+                <h2 class="text-3xl font-bold mb-8 fade-in-up">🎓 Educational Journey</h2>
                 <div class="space-y-8">
-                    <!-- Updated education entries -->
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+                    <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-up" data-delay="100">
                         <h3 class="text-xl font-semibold mb-2">National University of Sciences & Technology (NUST)</h3>
                         <p>Bachelor of Engineering, Software Engineering</p>
                         <p>Graduated June 2025</p>
                         <p class="text-gray-400 mt-2">Final Year Design Project: Next-Gen Prosthetics: AR Customization
                             and Visualization App</p>
                     </div>
-
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+                    <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-up" data-delay="200">
                         <h3 class="text-xl font-semibold mb-2">Cambridge High School</h3>
+                        <p>A-Level and IGCSE</p>
                         <p>Graduated 2021, Abu Dhabi, UAE</p>
                         <ul class="achievement-list text-gray-300 mt-2">
                             <li>A-Level: 1A* 2A's (June 2021)</li>
                             <li>AS-Level: 5 A's, self-taught Further Mathematics (June 2020)</li>
-                            <li>IGCSE: 8 A*'s, self-taught Business Studies (June 2019)</li>
+                            <li>IGCSE: 8 A*'s, including self-taught Business Studies (June 2019)</li>
                         </ul>
                     </div>
-
-                    <!-- Professional Certifications -->
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+                    <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-up" data-delay="300">
                         <h3 class="text-xl font-semibold mb-2">Professional Certifications</h3>
                         <ul class="achievement-list text-gray-300">
                             <li>Google Cybersecurity - September 2023</li>
@@ -174,10 +457,10 @@
                 </div>
             </section>
 
-            <section id="skills" class="mb-16 section-padding fade-in-section scroll-mt">
-                <h2 class="text-3xl font-bold mb-8">🛠️ Skills & Expertise</h2>
+            <section id="skills" class="mb-16 section-padding scroll-mt">
+                <h2 class="text-3xl font-bold mb-8 fade-in-up">🛠️ Skills & Expertise</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+                    <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-left">
                         <h3 class="text-xl font-semibold mb-4">Languages & Libraries</h3>
 
                         <h4 class="text-lg font-medium mb-2">Programming Languages</h4>
@@ -260,7 +543,7 @@
                         </ul>
                     </div>
 
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+                    <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-right">
                         <h3 class="text-xl font-semibold mb-4">Tools & Technologies</h3>
 
                         <h4 class="text-lg font-medium mb-2">Development Tools</h4>
@@ -348,31 +631,30 @@
                 </div>
             </section>
 
-            <section id="projects" class="mb-16 section-padding fade-in-section scroll-mt">
-                <h2 class="text-3xl font-bold mb-8">🚀 Notable Projects</h2>
-                <div class="project-carousel relative">
-                    <div
-                        class="project-carousel-inner flex transition-transform duration-300 ease-in-out overflow-hidden">
+            <section id="projects" class="mb-16 section-padding scroll-mt">
+                <h2 class="text-3xl font-bold mb-8 fade-in-up">🚀 Notable Projects</h2>
+                <div class="project-carousel relative fade-in-up" data-delay="200">
+                    <div class="project-carousel-inner flex overflow-hidden">
                         <!-- Projects will be dynamically added here -->
                     </div>
                     <button
-                        class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+                        class="carousel-btn absolute top-1/2 left-2 transform -translate-y-1/2 text-white p-3 rounded-full z-10"
                         id="prevProject">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                     <button
-                        class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+                        class="carousel-btn absolute top-1/2 right-2 transform -translate-y-1/2 text-white p-3 rounded-full z-10"
                         id="nextProject">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
             </section>
 
-            <section id="achievements" class="mb-16 section-padding fade-in-section scroll-mt">
-                <h2 class="text-3xl font-bold mb-8">🏆 Achievements & Awards</h2>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+            <section id="achievements" class="mb-16 section-padding scroll-mt">
+                <h2 class="text-3xl font-bold mb-8 fade-in-up">🏆 Achievements & Awards</h2>
+                <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-up">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
+                        <div class="fade-in-left" data-delay="100">
                             <h3 class="text-xl font-semibold mb-4 text-white">Major Recognitions</h3>
                             <ul class="achievement-list text-gray-300">
                                 <li>UAE Golden Visa Recipient (September 2022) - "Outstanding High School Graduates"
@@ -382,7 +664,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div>
+                        <div class="fade-in-right" data-delay="200">
                             <h3 class="text-xl font-semibold mb-4 text-white">Academic Excellence</h3>
                             <ul class="achievement-list text-gray-300">
                                 <li>AS-Level School Topper (August 2020)</li>
@@ -391,7 +673,7 @@
                                 <li>Year 10 Topper (September 2018)</li>
                             </ul>
                         </div>
-                        <div>
+                        <div class="fade-in-left" data-delay="300">
                             <h3 class="text-xl font-semibold mb-4 text-white">Leadership Roles</h3>
                             <ul class="achievement-list text-gray-300">
                                 <li>Liaison Executive in NUST Digital Club (September 2022 to Present)</li>
@@ -400,7 +682,7 @@
                                 <li>High Performance Learning Student Ambassador (2019-2020)</li>
                             </ul>
                         </div>
-                        <div>
+                        <div class="fade-in-right" data-delay="400">
                             <h3 class="text-xl font-semibold mb-4 text-white">Competitions & Extracurriculars</h3>
                             <ul class="achievement-list text-gray-300">
                                 <li>"Best Delegation" at CAMUN 2020</li>
@@ -413,13 +695,12 @@
                 </div>
             </section>
 
-            <section id="contact" class="mb-16 section-padding fade-in-section scroll-mt">
-                <h2 class="text-3xl font-bold mb-8">📬 Get in Touch</h2>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover">
+            <section id="contact" class="mb-16 section-padding scroll-mt">
+                <h2 class="text-3xl font-bold mb-8 fade-in-up">📬 Get in Touch</h2>
+                <div class="skill-category p-6 rounded-lg shadow-md card-hover fade-in-up">
                     <p class="mb-4">I'm always open to collaborating with passionate people from all walks of life.
                         Whether you're in tech or any other field, feel free to reach out. Let's connect and create
-                        something great together!
-                    </p>
+                        something great together!</p>
                     <p class="mb-4">Email: <a href="mailto:fahd-ahmad@outlook.com"
                             class="text-blue-400 hover:text-blue-300 transition duration-300">fahd-ahmad@outlook.com</a>
                     </p>
@@ -430,7 +711,7 @@
             </section>
         </main>
 
-        <footer class="bg-gray-900 py-8">
+        <footer class="bg-gray-900/50 backdrop-blur-lg py-8 border-t border-gray-800/50">
             <div class="container mx-auto px-6 md:px-12 lg:px-24">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="text-gray-400 mb-4 md:mb-0">
@@ -453,7 +734,378 @@
     </div>
 
     <script src="projects.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Register GSAP plugins with better error handling
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            if (typeof ScrollToPlugin !== 'undefined') {
+                gsap.registerPlugin(ScrollToPlugin);
+            }
+        }
+
+        // Enhanced animations
+        function initAnimations() {
+            if (typeof gsap === 'undefined') return;
+
+            // Fade in up animations
+            gsap.utils.toArray('.fade-in-up').forEach(el => {
+                const delay = el.dataset.delay ? parseFloat(el.dataset.delay) / 1000 : 0;
+                gsap.fromTo(el, {
+                    opacity: 0,
+                    y: 40
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: delay,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Fade in left animations
+            gsap.utils.toArray('.fade-in-left').forEach(el => {
+                const delay = el.dataset.delay ? parseFloat(el.dataset.delay) / 1000 : 0;
+                gsap.fromTo(el, {
+                    opacity: 0,
+                    x: -40
+                }, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.6,
+                    delay: delay,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Fade in right animations
+            gsap.utils.toArray('.fade-in-right').forEach(el => {
+                const delay = el.dataset.delay ? parseFloat(el.dataset.delay) / 1000 : 0;
+                gsap.fromTo(el, {
+                    opacity: 0,
+                    x: 40
+                }, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.6,
+                    delay: delay,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Scale in animations
+            gsap.utils.toArray('.scale-in').forEach(el => {
+                gsap.fromTo(el, {
+                    opacity: 0,
+                    scale: 0.9
+                }, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: "back.out(1.7)",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Achievement list animations
+            gsap.utils.toArray('.achievement-list li').forEach((li, i) => {
+                gsap.fromTo(li, {
+                    opacity: 0,
+                    x: -20
+                }, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.25,
+                    delay: i * 0.02,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: li.closest('.achievement-list'),
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Progress bar animation
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.create({
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    onUpdate: self => {
+                        gsap.to("#progress-bar", {
+                            scaleX: self.progress,
+                            duration: 0.1,
+                            ease: "none"
+                        });
+                    }
+                });
+            } else {
+                // Fallback progress bar
+                window.addEventListener('scroll', () => {
+                    const progressBar = document.getElementById('progress-bar');
+                    const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                    progressBar.style.width = `${scrollPercentage}%`;
+                });
+            }
+        }
+
+        // Enhanced project carousel
+        const carousel = document.querySelector('.project-carousel-inner');
+        const prevButton = document.getElementById('prevProject');
+        const nextButton = document.getElementById('nextProject');
+        let currentIndex = 0;
+
+        function getVisibleProjects() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 640) return 2;
+            return 1;
+        }
+
+        function createProjectCard(project) {
+            const div = document.createElement('div');
+            div.className = 'project-card';
+            div.innerHTML = `
+                <div class="project-card-inner p-6">
+                    <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover mb-4 rounded">
+                    <h3 class="text-xl font-semibold mb-2">${project.title}</h3>
+                    <div class="project-card-description text-gray-300">
+                        ${project.description}
+                    </div>
+                </div>
+            `;
+            return div;
+        }
+
+        function getCardWidth() {
+            const card = document.querySelector('.project-card');
+            return card ? card.offsetWidth : 0;
+        }
+
+        function updateCarousel() {
+            carousel.innerHTML = '';
+            const visibleProjects = getVisibleProjects();
+            for (let i = 0; i < visibleProjects + 1; i++) {
+                const index = (currentIndex + i) % projects.length;
+                carousel.appendChild(createProjectCard(projects[index]));
+            }
+            // Remove CSS transition and use GSAP for positioning
+            if (typeof gsap !== 'undefined') {
+                gsap.set(carousel, { x: 0 });
+            } else {
+                carousel.style.transform = 'translateX(0)';
+            }
+        }
+
+        function nextProject() {
+            const cardWidth = getCardWidth();
+            if (typeof gsap !== 'undefined') {
+                gsap.to(carousel, {
+                    x: -cardWidth,
+                    duration: 0.6,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        currentIndex = (currentIndex + 1) % projects.length;
+                        updateCarousel();
+                    }
+                });
+            } else {
+                // Fallback for non-GSAP
+                carousel.style.transition = 'transform 0.6s ease-in-out';
+                carousel.style.transform = `translateX(-${cardWidth}px)`;
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % projects.length;
+                    updateCarousel();
+                }, 600);
+            }
+        }
+
+        function prevProject() {
+            const cardWidth = getCardWidth();
+            currentIndex = (currentIndex - 1 + projects.length) % projects.length;
+            updateCarousel();
+
+            if (typeof gsap !== 'undefined') {
+                gsap.set(carousel, { x: -cardWidth });
+                gsap.to(carousel, {
+                    x: 0,
+                    duration: 0.6,
+                    ease: "power2.inOut"
+                });
+            } else {
+                // Fallback for non-GSAP
+                carousel.style.transition = 'none';
+                carousel.style.transform = `translateX(-${cardWidth}px)`;
+                setTimeout(() => {
+                    carousel.style.transition = 'transform 0.6s ease-in-out';
+                    carousel.style.transform = 'translateX(0)';
+                }, 10);
+            }
+        }
+
+        nextButton.addEventListener('click', nextProject);
+        prevButton.addEventListener('click', prevProject);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    // Calculate target position manually for more control
+                    const targetPosition = targetElement.offsetTop - 80; // Account for header height
+
+                    if (typeof gsap !== 'undefined' && gsap.to) {
+                        gsap.to(window, {
+                            duration: 1.2,
+                            scrollTo: {
+                                y: targetPosition,
+                                autoKill: false
+                            },
+                            ease: "power2.inOut"
+                        });
+                    } else {
+                        // Fallback to native smooth scroll
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Scroll to top button functionality
+        const scrollToTopButton = document.getElementById('scroll-to-top');
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopButton.classList.add('visible');
+                scrollToTopButton.classList.remove('hidden');
+            } else {
+                scrollToTopButton.classList.remove('visible');
+                scrollToTopButton.classList.add('hidden');
+            }
+        });
+
+        // Scroll to top when clicked
+        scrollToTopButton.addEventListener('click', () => {
+            if (typeof gsap !== 'undefined' && gsap.to) {
+                gsap.to(window, {
+                    duration: 1.2,
+                    scrollTo: {
+                        y: 0,
+                        autoKill: false
+                    },
+                    ease: "power2.inOut"
+                });
+            } else {
+                // Fallback to native smooth scroll
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+
+        // Close menu when a link is clicked
+        const menuLinks = menu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                }
+            });
+        });
+
+        // Enhanced typewriter effect
+        function typeWriter(text, i, fnCallback) {
+            if (i < text.length) {
+                document.getElementById("typed-description").innerHTML =
+                    text.substring(0, i + 1) + '<span class="animate-pulse">|</span>';
+
+                setTimeout(() => typeWriter(text, i + 1, fnCallback), 30);
+            } else if (typeof fnCallback === 'function') {
+                document.getElementById("typed-description").innerHTML = text;
+                setTimeout(fnCallback, 500);
+            }
+        }
+
+        // Initialize everything when page loads
+        window.addEventListener('load', () => {
+            // Small delay to ensure GSAP plugins are fully loaded
+            setTimeout(() => {
+                // Initialize GSAP animations if available
+                if (typeof gsap !== 'undefined' && ScrollTrigger) {
+                    initAnimations();
+                } else {
+                    // Fallback to Intersection Observer for basic animations
+                    const fadeInSections = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .scale-in');
+                    const fadeInObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0) translateX(0) scale(1)';
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    fadeInSections.forEach(section => {
+                        fadeInObserver.observe(section);
+                    });
+                }
+
+                updateCarousel();
+
+                // Start typewriter effect
+                const text = "Freelance Software Engineer with expertise in AI/ML, data science, and full-stack development. NUST Software Engineering graduate passionate about innovative technologies and creating impactful solutions.";
+                typeWriter(text, 0);
+
+                // Refresh ScrollTrigger after animations are set up (if available)
+                if (typeof ScrollTrigger !== 'undefined') {
+                    ScrollTrigger.refresh();
+                }
+            }, 100);
+        });
+
+        // Update carousel on window resize
+        window.addEventListener('resize', () => {
+            updateCarousel();
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh();
+            }
+        });
+    </script>
 </body>
 
 </html>
