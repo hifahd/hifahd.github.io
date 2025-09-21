@@ -162,7 +162,7 @@ function typeWriter(text, i, fnCallback) {
 
 // Start the typing animation when the page loads
 window.addEventListener('load', function () {
-    var text = "Software Engineer specializing in AI/ML, data science, and full-stack development. Recent NUST graduate with experience in building production-ready systems and innovative technological solutions.";
+    var text = "Backend Lead & AI Co-Lead at Oosal with expertise in AI/ML, data science, and full-stack development. NUST Software Engineering graduate passionate about building scalable platforms and creating innovative technological solutions.";
     typeWriter(text, 0, function () {
         // Animation is complete
     });
