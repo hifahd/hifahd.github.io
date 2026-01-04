@@ -34,20 +34,15 @@
                             800: '#0a0a12',
                         },
                         primary: {
-                            400: '#38bdf8', // Sky 400
-                            500: '#0ea5e9', // Sky 500
-                            600: '#0284c7', // Sky 600
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
                         },
                         accent: {
                             purple: '#8b5cf6',
                             cyan: '#06b6d4',
-                            indigo: '#6366f1'
                         }
                     },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                        'hero-glow': 'conic-gradient(from 90deg at 50% 50%, #00000000 50%, #0ea5e9 100%)',
-                    }
                 }
             }
         }
@@ -90,31 +85,47 @@
     <main class="relative">
 
         <section id="intro-section" class="h-screen w-full bg-black flex items-center justify-center overflow-hidden relative z-40">
-            <div class="laptop-wrapper relative w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] flex items-center justify-center perspective-1000">
-                <div class="macbook transform-style-3d relative w-[240px] sm:w-[400px] h-[140px] sm:h-[230px]">
-                    <div class="macbook-lid absolute top-0 left-0 w-full h-full transform-origin-bottom transform-style-3d">
-                        <div class="macbook-screen-back absolute inset-0 bg-[#0a0a0a] rounded-t-xl border border-gray-800"></div>
-                        <div class="macbook-screen-face absolute inset-0 bg-black rounded-t-xl border-[1px] border-gray-700 overflow-hidden flex items-center justify-center backface-hidden">
-                            <div class="absolute top-2 w-1.5 h-1.5 bg-gray-800 rounded-full z-20"></div>
-                            <div class="w-[95%] h-[90%] bg-dark-900 overflow-hidden relative">
-                                <div class="absolute inset-0 bg-gradient-to-br from-primary-900/40 to-accent-purple/40"></div>
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <i class="fas fa-code text-4xl text-white/20 animate-pulse"></i>
+            
+            <div class="laptop-scene perspective-2000">
+                <div class="macbook transform-style-3d">
+                    
+                    <div class="lid transform-style-3d">
+                        <div class="lid-back"></div> <div class="lid-face">
+                            <div class="screen-bezel">
+                                <div class="camera-notch">
+                                    <div class="camera-lens"></div>
+                                </div>
+                                <div class="screen-content overflow-hidden">
+                                    <div class="w-full h-full flex flex-col items-center justify-center bg-black text-center relative">
+                                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-black to-primary-900/30 opacity-60"></div>
+                                        
+                                        <div class="relative z-10 flex flex-col items-center">
+                                            <div class="w-16 h-16 rounded-full bg-gray-800 border border-white/10 flex items-center justify-center mb-4 shadow-xl">
+                                                <i class="fas fa-user text-white/50 text-2xl"></i>
+                                            </div>
+                                            <h3 class="text-white font-semibold text-lg mb-1">Fahd Ahmad</h3>
+                                            <p class="text-primary-400 text-xs uppercase tracking-widest font-bold animate-pulse">Scroll to Login</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="macbook-base absolute -bottom-3 left-0 w-full h-[12px] bg-[#1a1a1a] rounded-b-xl transform-style-3d">
-                         <div class="absolute top-0 w-full h-full bg-gradient-to-b from-[#2a2a2a] to-[#0a0a0a] rounded-b-xl border-t border-gray-800"></div>
-                         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#151515] rounded-b-md"></div>
+
+                    <div class="base transform-style-3d">
+                        <div class="base-top">
+                            <div class="keyboard-tray"></div>
+                            <div class="trackpad"></div>
+                        </div>
+                        <div class="base-bottom"></div>
+                        <div class="base-side-left"></div>
+                        <div class="base-side-right"></div>
+                        <div class="base-front"></div>
                     </div>
+
                 </div>
             </div>
-            
-            <div id="scroll-hint" class="absolute bottom-10 left-1/2 -translate-x-1/2 text-center opacity-0">
-                <p class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-2">Scroll to Open</p>
-                <div class="w-px h-10 bg-gradient-to-b from-primary-500 to-transparent mx-auto"></div>
-            </div>
+
         </section>
         
         <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20" id="home">

@@ -13,39 +13,175 @@ body.modal-open {
 }
 
 /* ----------------------------- */
-/* 3D Laptop Animation Styles    */
+/* 3D Laptop High-Quality CSS    */
 /* ----------------------------- */
 
-.perspective-1000 {
-    perspective: 1000px;
+.perspective-2000 {
+    perspective: 2000px;
 }
 
 .transform-style-3d {
     transform-style: preserve-3d;
 }
 
-.transform-origin-bottom {
+.laptop-scene {
+    width: 600px;
+    height: 380px;
+    position: relative;
+    /* Scale down for mobile */
+    transform: scale(0.6);
+}
+
+@media (min-width: 768px) {
+    .laptop-scene {
+        transform: scale(1);
+    }
+}
+
+.macbook {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: rotateX(10deg); /* Slight initial tilt */
+}
+
+/* --- LID (Screen) --- */
+.lid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 380px;
     transform-origin: bottom;
+    transform: rotateX(-90deg); /* Start closed */
 }
 
-.backface-hidden {
-    backface-visibility: hidden;
+.lid-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #0d0d0d;
+    border-radius: 18px 18px 0 0;
+    border: 1px solid #333;
+    overflow: hidden;
+    transform: translateZ(1px); /* Push slightly front */
 }
 
-/* Mac Styling */
-.macbook-lid {
-    /* Initial state: closed */
-    transform: rotateX(-90deg);
+.lid-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2b2b2b 0%, #1a1a1a 100%);
+    border-radius: 18px 18px 0 0;
+    transform: rotateY(180deg) translateZ(1px);
 }
 
-.macbook-screen-back {
-    transform: rotateY(180deg);
+/* Bezel */
+.screen-bezel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+    border-radius: 16px 16px 0 0;
+    padding: 12px 12px 0 12px; /* Bezel thickness */
 }
 
-/* Scroll Hint Animation */
-#scroll-hint {
-    animation: fadeIn 2s ease-in-out forwards;
-    animation-delay: 1s;
+/* Screen Notch */
+.camera-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 18px;
+    background: black;
+    border-radius: 0 0 8px 8px;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.camera-lens {
+    width: 6px;
+    height: 6px;
+    background: #1a1a2e;
+    border-radius: 50%;
+    box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+}
+
+/* Actual Screen */
+.screen-content {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- BASE (Keyboard) --- */
+.base {
+    position: absolute;
+    top: 380px; /* Right below lid */
+    width: 600px;
+    height: 20px; /* Thickness */
+    transform-style: preserve-3d;
+}
+
+.base-top {
+    position: absolute;
+    width: 600px;
+    height: 400px; /* Depth of keyboard area */
+    background: linear-gradient(to bottom, #252525, #1a1a1a);
+    transform: rotateX(90deg) translateZ(-200px) translateY(-200px); 
+    /* This positioning is tricky: essentially aiming to lay it flat */
+    /* Let's simplify: base is just a flat plane rotated 90deg relative to screen? No. */
+    /* The lid rotates relative to scene. Base sits flat. */
+}
+
+/* Correction for Base Geometry to match Lid pivot */
+/* Actually, simpler approach: Base is static flat, Lid pivots up from it. */
+.base {
+    top: 378px;
+    left: 0;
+    width: 600px;
+    height: 400px;
+    transform-origin: top;
+    transform: rotateX(90deg); /* Lays flat */
+    background: linear-gradient(135deg, #2b2b2b 0%, #1f1f1f 100%);
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+}
+
+.keyboard-tray {
+    position: absolute;
+    top: 40px;
+    left: 30px;
+    right: 30px;
+    height: 220px;
+    background: #111;
+    border-radius: 8px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+    /* Simulated keys via background pattern */
+    background-image: 
+        linear-gradient(to right, #1a1a1a 1px, transparent 1px),
+        linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
+    background-size: 38px 38px;
+}
+
+.trackpad {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 100px;
+    background: #252525;
+    border-radius: 8px;
+    border: 1px solid #333;
 }
 
 /* ----------------------------- */
@@ -79,7 +215,7 @@ body.modal-open {
     animation: blink 1s step-end infinite;
 }
 
-/* Scrollbar Hide (Horizontal Carousel) */
+/* Scrollbar Hide */
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
@@ -122,7 +258,7 @@ body.modal-open {
     box-shadow: 0 10px 40px -10px rgba(56, 189, 248, 0.15);
 }
 
-/* Typing Cursor for Headings */
+/* Typing Cursor */
 .type-cursor::after {
     content: '|';
     animation: blink 1s step-end infinite;
@@ -130,7 +266,6 @@ body.modal-open {
     margin-left: 4px;
 }
 
-/* Mobile Menu Transitions */
 #mobile-menu {
     transition: opacity 0.3s ease-in-out, visibility 0.3s;
 }

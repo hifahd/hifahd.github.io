@@ -5,9 +5,6 @@ gsap.registerPlugin(ScrollTrigger);
 // 0. Intro Animation (Laptop)
 // -----------------------------------------------------------------------------
 function initIntroAnimation() {
-    // Only run on non-mobile for best effect, or adjust scale for mobile
-    // Here we run it generally but ensure smooth fallback
-    
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: "#intro-section",
@@ -26,27 +23,37 @@ function initIntroAnimation() {
         }
     });
 
-    tl.to(".macbook-lid", {
+    // 1. Open Lid
+    tl.to(".lid", {
         rotationX: 0,
         duration: 2,
         ease: "power2.inOut"
     })
-    .to(".macbook", {
-        scale: 50, // Zoom way in
+    // 2. Turn on Screen (Simulated by content opacity)
+    .fromTo(".screen-content", 
+        { filter: "brightness(0.2)" },
+        { filter: "brightness(1)", duration: 0.5 }, 
+        "-=1.0"
+    )
+    // 3. Zoom into Screen
+    .to(".laptop-scene", {
+        scale: 50, // Massive scale to fly through screen
         duration: 3,
-        ease: "power1.in",
-    }, "-=1.0") // Overlap slightly
+        ease: "power2.in", // Accelerate into the zoom
+    }, "+=0.2")
+    // 4. Fade out intro container for seamless transition
     .to("#intro-section", {
         opacity: 0,
         duration: 0.5,
         pointerEvents: "none"
     }, "-=0.5")
+    // 5. Show Hero Content
     .to("#hero-content", {
         opacity: 1,
         duration: 1
     });
 
-    // Make sure hero content is visible if user reloads in middle of page
+    // Handle reload in middle of page
     if (window.scrollY > 1500) {
         gsap.set("#intro-section", { display: "none" });
         gsap.set("#hero-content", { opacity: 1 });
@@ -62,7 +69,7 @@ const prevBtn = document.getElementById('prev-project');
 const nextBtn = document.getElementById('next-project');
 
 function inferTags(description) {
-    const keywords = ["Python", "Flutter", "React", "AI", "Machine Learning", "NLP", "IoT", "SQL", "Flask", "Node.js", "Firebase", "Java"];
+    const keywords = ["Python", "Flutter", "React", "AI", "Machine Learning", "NLP", "IoT", "SQL", "Flask", "Node.js", "Firebase", "Java", "Docker", "AWS", "Google Cloud"];
     return keywords.filter(keyword => description.includes(keyword));
 }
 
