@@ -13,7 +13,7 @@ body.modal-open {
 }
 
 /* ----------------------------- */
-/* 3D Laptop High-Quality CSS    */
+/* 3D Laptop Hybrid Styles       */
 /* ----------------------------- */
 
 .perspective-2000 {
@@ -28,7 +28,6 @@ body.modal-open {
     width: 600px;
     height: 380px;
     position: relative;
-    /* Scale down for mobile */
     transform: scale(0.6);
 }
 
@@ -42,10 +41,10 @@ body.modal-open {
     width: 100%;
     height: 100%;
     position: relative;
-    transform: rotateX(10deg); /* Slight initial tilt */
+    transform: rotateX(10deg); 
 }
 
-/* --- LID (Screen) --- */
+/* --- LID (High Quality) --- */
 .lid {
     position: absolute;
     top: 0;
@@ -64,7 +63,7 @@ body.modal-open {
     border-radius: 18px 18px 0 0;
     border: 1px solid #333;
     overflow: hidden;
-    transform: translateZ(1px); /* Push slightly front */
+    transform: translateZ(1px); 
 }
 
 .lid-back {
@@ -85,7 +84,7 @@ body.modal-open {
     bottom: 0;
     background: black;
     border-radius: 16px 16px 0 0;
-    padding: 12px 12px 0 12px; /* Bezel thickness */
+    padding: 12px 12px 0 12px;
 }
 
 /* Screen Notch */
@@ -122,66 +121,42 @@ body.modal-open {
     overflow: hidden;
 }
 
-/* --- BASE (Keyboard) --- */
-.base {
+/* --- BASE (Simpler, Restored Version) --- */
+.macbook-base {
     position: absolute;
-    top: 380px; /* Right below lid */
-    width: 600px;
-    height: 20px; /* Thickness */
-    transform-style: preserve-3d;
-}
-
-.base-top {
-    position: absolute;
-    width: 600px;
-    height: 400px; /* Depth of keyboard area */
-    background: linear-gradient(to bottom, #252525, #1a1a1a);
-    transform: rotateX(90deg) translateZ(-200px) translateY(-200px); 
-    /* This positioning is tricky: essentially aiming to lay it flat */
-    /* Let's simplify: base is just a flat plane rotated 90deg relative to screen? No. */
-    /* The lid rotates relative to scene. Base sits flat. */
-}
-
-/* Correction for Base Geometry to match Lid pivot */
-/* Actually, simpler approach: Base is static flat, Lid pivots up from it. */
-.base {
-    top: 378px;
+    top: 380px; /* Aligned with bottom of lid */
     left: 0;
     width: 600px;
-    height: 400px;
-    transform-origin: top;
-    transform: rotateX(90deg); /* Lays flat */
-    background: linear-gradient(135deg, #2b2b2b 0%, #1f1f1f 100%);
+    height: 20px; /* Simple thickness */
+    background: #1a1a1a;
     border-radius: 0 0 20px 20px;
-    box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+    transform-style: preserve-3d;
+    /* Adjust Z slightly to sit behind lid pivot */
+    transform: translateZ(-2px); 
 }
 
-.keyboard-tray {
+.macbook-base-top {
     position: absolute;
-    top: 40px;
-    left: 30px;
-    right: 30px;
-    height: 220px;
-    background: #111;
-    border-radius: 8px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-    /* Simulated keys via background pattern */
-    background-image: 
-        linear-gradient(to right, #1a1a1a 1px, transparent 1px),
-        linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
-    background-size: 38px 38px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid #333;
 }
 
-.trackpad {
+.macbook-opener-notch {
     position: absolute;
-    bottom: 20px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 200px;
-    height: 100px;
-    background: #252525;
-    border-radius: 8px;
-    border: 1px solid #333;
+    width: 80px;
+    height: 8px;
+    background: #151515;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid #222;
+    border-top: none;
 }
 
 /* ----------------------------- */

@@ -29,18 +29,17 @@ function initIntroAnimation() {
         duration: 2,
         ease: "power2.inOut"
     })
-    // 2. Turn on Screen (Simulated by content opacity)
-    .fromTo(".screen-content", 
-        { filter: "brightness(0.2)" },
-        { filter: "brightness(1)", duration: 0.5 }, 
-        "-=1.0"
-    )
-    // 3. Zoom into Screen
+    // 2. FADE OUT TEXT (Login message) - Ensure blank screen before zoom
+    .to("#login-text", {
+        opacity: 0,
+        duration: 0.5
+    }, "-=0.5") 
+    // 3. Zoom into Screen (starts after text fades)
     .to(".laptop-scene", {
-        scale: 50, // Massive scale to fly through screen
+        scale: 60, // Massive scale to fly through screen
         duration: 3,
         ease: "power2.in", // Accelerate into the zoom
-    }, "+=0.2")
+    })
     // 4. Fade out intro container for seamless transition
     .to("#intro-section", {
         opacity: 0,
