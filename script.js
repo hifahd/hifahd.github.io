@@ -2,13 +2,65 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // -----------------------------------------------------------------------------
+// 0. Intro Animation (Laptop)
+// -----------------------------------------------------------------------------
+function initIntroAnimation() {
+    // Only run on non-mobile for best effect, or adjust scale for mobile
+    // Here we run it generally but ensure smooth fallback
+    
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#intro-section",
+            start: "top top",
+            end: "+=1500", // Length of scroll to complete animation
+            scrub: 1,      // Smooth scrubbing
+            pin: true,     // Pin the section
+            onLeave: () => {
+                // When animation is done, fade in navbar
+                gsap.to("#navbar", { opacity: 1, duration: 0.5 });
+            },
+            onEnterBack: () => {
+                // Hide navbar when scrolling back up into intro
+                gsap.to("#navbar", { opacity: 0, duration: 0.3 });
+            }
+        }
+    });
+
+    tl.to(".macbook-lid", {
+        rotationX: 0,
+        duration: 2,
+        ease: "power2.inOut"
+    })
+    .to(".macbook", {
+        scale: 50, // Zoom way in
+        duration: 3,
+        ease: "power1.in",
+    }, "-=1.0") // Overlap slightly
+    .to("#intro-section", {
+        opacity: 0,
+        duration: 0.5,
+        pointerEvents: "none"
+    }, "-=0.5")
+    .to("#hero-content", {
+        opacity: 1,
+        duration: 1
+    });
+
+    // Make sure hero content is visible if user reloads in middle of page
+    if (window.scrollY > 1500) {
+        gsap.set("#intro-section", { display: "none" });
+        gsap.set("#hero-content", { opacity: 1 });
+        gsap.set("#navbar", { opacity: 1 });
+    }
+}
+
+// -----------------------------------------------------------------------------
 // 1. Projects Carousel
 // -----------------------------------------------------------------------------
 const carouselContainer = document.getElementById('projects-carousel');
 const prevBtn = document.getElementById('prev-project');
 const nextBtn = document.getElementById('next-project');
 
-// Helper to infer tags from description (since tags aren't in your data array explicitly)
 function inferTags(description) {
     const keywords = ["Python", "Flutter", "React", "AI", "Machine Learning", "NLP", "IoT", "SQL", "Flask", "Node.js", "Firebase", "Java"];
     return keywords.filter(keyword => description.includes(keyword));
@@ -69,12 +121,10 @@ const modalTags = document.getElementById('modal-tags');
 function openProjectModal(index) {
     const project = projects[index];
     
-    // Populate Data
     modalTitle.textContent = project.title;
     modalImage.src = project.image;
-    modalDescription.innerHTML = project.description; // using innerHTML to allow basic HTML tags if any
+    modalDescription.innerHTML = project.description;
     
-    // Generate simple tags
     const tags = inferTags(project.description);
     if(tags.length === 0) tags.push("Software Engineering");
     
@@ -82,7 +132,6 @@ function openProjectModal(index) {
         `<span class="px-3 py-1 bg-primary-500/20 text-primary-400 text-sm rounded-full border border-primary-500/30">${tag}</span>`
     ).join('');
 
-    // Show Modal
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.classList.add('modal-open');
@@ -97,8 +146,6 @@ function closeProjectModal() {
 if (modal) {
     modalCloseBtn.addEventListener('click', closeProjectModal);
     modalBackdrop.addEventListener('click', closeProjectModal);
-    
-    // Close on Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
             closeProjectModal();
@@ -178,8 +225,8 @@ const typingObserver = new IntersectionObserver((entries) => {
             const el = entry.target;
             const text = el.getAttribute('data-text');
             if (text && !el.classList.contains('typed')) {
-                el.classList.add('typed', 'type-cursor'); // Add cursor
-                el.textContent = ''; // Clear initial text
+                el.classList.add('typed', 'type-cursor'); 
+                el.textContent = ''; 
                 typeEffect(el, text);
             }
         }
@@ -194,9 +241,8 @@ function typeEffect(element, text) {
         if (i < text.length) {
             element.textContent += text.charAt(i);
             i++;
-            setTimeout(type, 50 + Math.random() * 50); // Random variance for realism
+            setTimeout(type, 50 + Math.random() * 50);
         } else {
-            // Remove cursor after a delay
             setTimeout(() => {
                 element.classList.remove('type-cursor');
             }, 1000);
@@ -254,9 +300,12 @@ function typeWriterLoop(elementId, phrases) {
 
 
 // -----------------------------------------------------------------------------
-// 6. Utility
+// 6. Utility & Init
 // -----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
+    // Init Intro Animation
+    initIntroAnimation();
+
     // Init Hero Typing
     typeWriterLoop("typing-text", typingPhrases);
 

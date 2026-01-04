@@ -56,7 +56,7 @@
 </head>
 <body class="bg-dark-950 text-slate-300 font-sans selection:bg-primary-500 selection:text-white overflow-x-hidden">
 
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 opacity-0" id="navbar">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-md border-b border-white/10"></div>
         <div class="container mx-auto px-6 py-4 relative flex justify-between items-center">
             <a href="#" class="text-2xl font-heading font-extrabold text-white tracking-tight hover:opacity-80 transition-opacity">
@@ -88,6 +88,34 @@
     </nav>
 
     <main class="relative">
+
+        <section id="intro-section" class="h-screen w-full bg-black flex items-center justify-center overflow-hidden relative z-40">
+            <div class="laptop-wrapper relative w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] flex items-center justify-center perspective-1000">
+                <div class="macbook transform-style-3d relative w-[240px] sm:w-[400px] h-[140px] sm:h-[230px]">
+                    <div class="macbook-lid absolute top-0 left-0 w-full h-full transform-origin-bottom transform-style-3d">
+                        <div class="macbook-screen-back absolute inset-0 bg-[#0a0a0a] rounded-t-xl border border-gray-800"></div>
+                        <div class="macbook-screen-face absolute inset-0 bg-black rounded-t-xl border-[1px] border-gray-700 overflow-hidden flex items-center justify-center backface-hidden">
+                            <div class="absolute top-2 w-1.5 h-1.5 bg-gray-800 rounded-full z-20"></div>
+                            <div class="w-[95%] h-[90%] bg-dark-900 overflow-hidden relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-primary-900/40 to-accent-purple/40"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <i class="fas fa-code text-4xl text-white/20 animate-pulse"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="macbook-base absolute -bottom-3 left-0 w-full h-[12px] bg-[#1a1a1a] rounded-b-xl transform-style-3d">
+                         <div class="absolute top-0 w-full h-full bg-gradient-to-b from-[#2a2a2a] to-[#0a0a0a] rounded-b-xl border-t border-gray-800"></div>
+                         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#151515] rounded-b-md"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="scroll-hint" class="absolute bottom-10 left-1/2 -translate-x-1/2 text-center opacity-0">
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-2">Scroll to Open</p>
+                <div class="w-px h-10 bg-gradient-to-b from-primary-500 to-transparent mx-auto"></div>
+            </div>
+        </section>
         
         <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20" id="home">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
@@ -95,22 +123,22 @@
                 <div class="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-accent-purple/20 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
             </div>
 
-            <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="container mx-auto px-6 relative z-10 text-center opacity-0" id="hero-content">
                 
-                <p class="text-primary-400 font-medium mb-6 text-3xl md:text-4xl opacity-0 animate-fade-in-up font-serif italic">Hello, I'm Fahd.</p>
+                <p class="text-primary-400 font-medium mb-6 text-3xl md:text-4xl animate-fade-in-up font-serif italic">Hello, I'm Fahd.</p>
 
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold mb-8 tracking-tight leading-tight opacity-0 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold mb-8 tracking-tight leading-tight animate-fade-in-up" style="animation-delay: 0.1s;">
                     Building Intelligent Systems & <br>
                     <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-accent-cyan to-accent-purple">Scalable Solutions</span>
                 </h1>
                 
-                <div class="h-12 md:h-16 mb-8 flex justify-center items-center opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="h-12 md:h-16 mb-8 flex justify-center items-center animate-fade-in-up" style="animation-delay: 0.2s;">
                     <p class="text-xl md:text-3xl text-slate-400 font-light">
                         I am a <span id="typing-text" class="text-white font-semibold border-b-2 border-primary-400 pb-1"></span><span class="animate-blink text-primary-400">|</span>
                     </p>
                 </div>
                 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-5 opacity-0 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-5 animate-fade-in-up" style="animation-delay: 0.3s;">
                     <a href="#projects" class="group relative px-8 py-3.5 bg-gradient-to-r from-primary-600 to-accent-purple text-white rounded-full font-bold overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(14,165,233,0.4)]">
                         <span class="relative z-10">See My Work</span>
                     </a>
@@ -350,7 +378,7 @@
                 
                 <div class="pt-6 border-t border-white/10 flex justify-between items-center">
                     <span class="text-slate-500 text-sm">Project Details</span>
-                    </div>
+                </div>
             </div>
         </div>
     </div>

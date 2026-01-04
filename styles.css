@@ -8,12 +8,50 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Prevent scroll when modal is open */
 body.modal-open {
     overflow: hidden;
 }
 
-/* Animations */
+/* ----------------------------- */
+/* 3D Laptop Animation Styles    */
+/* ----------------------------- */
+
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.transform-style-3d {
+    transform-style: preserve-3d;
+}
+
+.transform-origin-bottom {
+    transform-origin: bottom;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+/* Mac Styling */
+.macbook-lid {
+    /* Initial state: closed */
+    transform: rotateX(-90deg);
+}
+
+.macbook-screen-back {
+    transform: rotateY(180deg);
+}
+
+/* Scroll Hint Animation */
+#scroll-hint {
+    animation: fadeIn 2s ease-in-out forwards;
+    animation-delay: 1s;
+}
+
+/* ----------------------------- */
+/* General Animations            */
+/* ----------------------------- */
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
