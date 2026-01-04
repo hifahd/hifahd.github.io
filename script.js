@@ -22,7 +22,7 @@ function initIntroAnimation() {
     });
 
     // 1. Reveal Text & Open Laptop simultaneously
-    tl.to("#login-text", { opacity: 1, duration: 0.2 }) 
+    tl.to("#login-text", { opacity: 1, duration: 0.2 })
       .to(".macbook", {
           rotationX: 20, // Tilt base up to viewing angle
           duration: 1.5,

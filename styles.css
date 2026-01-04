@@ -54,7 +54,7 @@ body.modal-open {
     height: 380px;
     transform-origin: bottom;
     /* Closed flat against base */
-    transform: rotateX(-90deg); 
+    transform: rotateX(-84.5deg);
 }
 
 .lid-face {
@@ -126,11 +126,11 @@ body.modal-open {
 /* --- BASE (Simple Slab Restored) --- */
 .macbook-base {
     position: absolute;
-    top: 380px; /* Aligned with bottom of lid */
+    top: 380px; /* Positioned slightly below lid pivot to prevent overlap */
     left: 50%;
-    transform: translateX(-50%) translateZ(-2px);
-    width: 700px; /* Wider to match lid when viewed in perspective */
-    height: 20px; /* Simple thickness */
+    transform: translateX(-50%) translateZ(-10px);
+    width: 715px; /* Wider to match lid when viewed in perspective */
+    height: 18px; /* Simple thickness */
     background: #1a1a1a;
     border-radius: 0 0 20px 20px;
     transform-style: preserve-3d;
