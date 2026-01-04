@@ -82,7 +82,7 @@ function inferTags(description) {
 
 function createProjectCard(project, index) {
     return `
-        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col snap-center min-w-[85vw] md:min-w-[350px] lg:min-w-[400px] h-full cursor-pointer" onclick="openProjectModal(${index})">
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col snap-center flex-shrink-0 w-[85vw] md:w-[350px] lg:w-[400px] h-full cursor-pointer" onclick="openProjectModal(${index})">
             <div class="relative h-56 overflow-hidden flex-shrink-0">
                 <div class="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors z-10"></div>
                 <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
