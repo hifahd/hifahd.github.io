@@ -8,6 +8,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Prevent scroll when modal is open */
+body.modal-open {
+    overflow: hidden;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }

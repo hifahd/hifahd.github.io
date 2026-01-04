@@ -8,15 +8,21 @@ const carouselContainer = document.getElementById('projects-carousel');
 const prevBtn = document.getElementById('prev-project');
 const nextBtn = document.getElementById('next-project');
 
+// Helper to infer tags from description (since tags aren't in your data array explicitly)
+function inferTags(description) {
+    const keywords = ["Python", "Flutter", "React", "AI", "Machine Learning", "NLP", "IoT", "SQL", "Flask", "Node.js", "Firebase", "Java"];
+    return keywords.filter(keyword => description.includes(keyword));
+}
+
 function createProjectCard(project, index) {
     return `
-        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col snap-center min-w-[85vw] md:min-w-[350px] lg:min-w-[400px] h-full">
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col snap-center min-w-[85vw] md:min-w-[350px] lg:min-w-[400px] h-full cursor-pointer" onclick="openProjectModal(${index})">
             <div class="relative h-56 overflow-hidden flex-shrink-0">
                 <div class="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors z-10"></div>
                 <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute top-4 right-4 z-20">
                     <span class="px-3 py-1 bg-black/90 backdrop-blur-md text-[10px] uppercase tracking-wider font-bold text-white rounded-full border border-white/20">
-                        Project
+                        View
                     </span>
                 </div>
             </div>
@@ -27,9 +33,9 @@ function createProjectCard(project, index) {
                 </div>
                 <div class="mt-auto pt-5 border-t border-white/10 flex justify-between items-center">
                     <span class="text-xs text-slate-500 font-mono">2024-2025</span>
-                    <a href="#" class="text-sm font-bold text-white hover:text-primary-400 transition-colors flex items-center gap-2 group-link">
+                    <button class="text-sm font-bold text-white hover:text-primary-400 transition-colors flex items-center gap-2 group-link">
                         Details <i class="fas fa-arrow-right text-xs transform group-link-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -37,10 +43,8 @@ function createProjectCard(project, index) {
 }
 
 if (carouselContainer) {
-    // Render all projects
     carouselContainer.innerHTML = projects.map((p, i) => createProjectCard(p, i)).join('');
-
-    // Scroll Logic
+    
     if (prevBtn && nextBtn) {
         prevBtn.addEventListener('click', () => {
             carouselContainer.scrollBy({ left: -420, behavior: 'smooth' });
@@ -52,7 +56,58 @@ if (carouselContainer) {
 }
 
 // -----------------------------------------------------------------------------
-// 2. Full Skills Data & Rendering
+// 2. Project Modal Logic
+// -----------------------------------------------------------------------------
+const modal = document.getElementById('project-modal');
+const modalBackdrop = document.getElementById('modal-backdrop');
+const modalCloseBtn = document.getElementById('modal-close');
+const modalTitle = document.getElementById('modal-title');
+const modalImage = document.getElementById('modal-image');
+const modalDescription = document.getElementById('modal-description');
+const modalTags = document.getElementById('modal-tags');
+
+function openProjectModal(index) {
+    const project = projects[index];
+    
+    // Populate Data
+    modalTitle.textContent = project.title;
+    modalImage.src = project.image;
+    modalDescription.innerHTML = project.description; // using innerHTML to allow basic HTML tags if any
+    
+    // Generate simple tags
+    const tags = inferTags(project.description);
+    if(tags.length === 0) tags.push("Software Engineering");
+    
+    modalTags.innerHTML = tags.map(tag => 
+        `<span class="px-3 py-1 bg-primary-500/20 text-primary-400 text-sm rounded-full border border-primary-500/30">${tag}</span>`
+    ).join('');
+
+    // Show Modal
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.classList.add('modal-open');
+}
+
+function closeProjectModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.classList.remove('modal-open');
+}
+
+if (modal) {
+    modalCloseBtn.addEventListener('click', closeProjectModal);
+    modalBackdrop.addEventListener('click', closeProjectModal);
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeProjectModal();
+        }
+    });
+}
+
+// -----------------------------------------------------------------------------
+// 3. Full Skills Data & Rendering
 // -----------------------------------------------------------------------------
 const skillsCategories = [
     {
@@ -113,7 +168,7 @@ if (skillsGrid) {
 
 
 // -----------------------------------------------------------------------------
-// 3. Type-on-Scroll for Headings
+// 4. Type-on-Scroll for Headings
 // -----------------------------------------------------------------------------
 const typeOnScrollElements = document.querySelectorAll('.type-on-scroll');
 
@@ -152,7 +207,7 @@ function typeEffect(element, text) {
 
 
 // -----------------------------------------------------------------------------
-// 4. Hero Typing Loop
+// 5. Hero Typing Loop
 // -----------------------------------------------------------------------------
 const typingPhrases = [
     "Software Engineer",
@@ -199,7 +254,7 @@ function typeWriterLoop(elementId, phrases) {
 
 
 // -----------------------------------------------------------------------------
-// 5. Utility
+// 6. Utility
 // -----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     // Init Hero Typing
@@ -261,4 +316,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuBtn.addEventListener('click', toggleMenu);
     mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+    // Scroll to Top
+    const scrollToTopBtn = document.getElementById('scroll-to-top');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            scrollToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+        } else {
+            scrollToTopBtn.classList.add('opacity-0', 'translate-y-10');
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 });
