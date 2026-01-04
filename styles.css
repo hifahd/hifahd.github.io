@@ -38,21 +38,38 @@ body {
 
 /* Skill Tags */
 .skill-tag {
-    @apply px-4 py-2 bg-white/5 border border-white/5 rounded-lg text-sm font-medium text-slate-300 hover:bg-white hover:text-dark-950 transition-all cursor-default;
+    /* Using standard CSS to avoid VS Code warnings, matching your preference */
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #cbd5e1; /* slate-300 */
+    transition: all 0.2s ease-in-out;
+    cursor: default;
+}
+
+.skill-tag:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
 }
 
 /* Glass Card Hover Effects */
 .glass-card {
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(15, 23, 42, 0.4));
+    /* Darker background for the cards to sit nicely on black */
+    background: linear-gradient(145deg, rgba(20, 20, 20, 0.8), rgba(10, 10, 10, 0.9));
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .glass-card:hover {
     transform: translateY(-8px);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    border-color: rgba(56, 189, 248, 0.4); /* Primary-400 */
+    box-shadow: 0 10px 40px -10px rgba(56, 189, 248, 0.15);
 }
 
 /* Mobile Menu Transitions */

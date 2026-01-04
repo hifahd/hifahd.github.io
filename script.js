@@ -15,10 +15,10 @@ function createProjectCard(project, index) {
     return `
         <div class="glass-card rounded-2xl overflow-hidden group h-full flex flex-col gs-reveal-up project-item" style="animation-delay: ${(index % 3) * 0.1}s">
             <div class="relative h-56 overflow-hidden">
-                <div class="absolute inset-0 bg-dark-900/20 group-hover:bg-transparent transition-colors z-10"></div>
+                <div class="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors z-10"></div>
                 <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute top-4 right-4 z-20">
-                    <span class="px-3 py-1 bg-dark-950/90 backdrop-blur-md text-[10px] uppercase tracking-wider font-bold text-white rounded-full border border-white/10">
+                    <span class="px-3 py-1 bg-black/90 backdrop-blur-md text-[10px] uppercase tracking-wider font-bold text-white rounded-full border border-white/20">
                         ${index < 3 ? 'Featured' : 'Project'}
                     </span>
                 </div>
@@ -28,7 +28,7 @@ function createProjectCard(project, index) {
                 <div class="text-slate-400 text-sm mb-6 line-clamp-3 flex-grow font-light leading-relaxed">
                     ${project.description}
                 </div>
-                <div class="mt-auto pt-5 border-t border-white/5 flex justify-between items-center">
+                <div class="mt-auto pt-5 border-t border-white/10 flex justify-between items-center">
                     <span class="text-xs text-slate-500 font-mono">2024-2025</span>
                     <a href="#" class="text-sm font-bold text-white hover:text-primary-400 transition-colors flex items-center gap-2 group-link">
                         Details <i class="fas fa-arrow-right text-xs transform group-link-hover:translate-x-1 transition-transform"></i>
@@ -143,9 +143,9 @@ function initAnimations() {
 // -----------------------------------------------------------------------------
 const typingPhrases = [
     "Software Engineer",
-    "AI Automation Expert",
     "NUST Graduate",
-    "Problem Solver"
+    "Problem Solver",
+    "Learner"
 ];
 
 function typeWriterLoop(elementId, phrases) {
@@ -222,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobileMenu.classList.contains('hidden')) {
             mobileMenu.classList.remove('hidden');
             mobileMenu.classList.add('flex');
-            // Small delay to allow display:flex to apply before opacity transition
             setTimeout(() => mobileMenu.classList.remove('opacity-0'), 10);
             document.body.style.overflow = 'hidden';
             menuBtn.innerHTML = '<i class="fas fa-times text-xl"></i>';
