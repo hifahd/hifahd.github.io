@@ -9,51 +9,59 @@ function initIntroAnimation() {
         scrollTrigger: {
             trigger: "#intro-section",
             start: "top top",
-            end: "+=1500", // Length of scroll to complete animation
-            scrub: 1,      // Smooth scrubbing
-            pin: true,     // Pin the section
+            end: "+=800", // Further reduced for faster content reveal
+            scrub: 1,
+            pin: true,
             onLeave: () => {
-                // When animation is done, fade in navbar
                 gsap.to("#navbar", { opacity: 1, duration: 0.5 });
             },
             onEnterBack: () => {
-                // Hide navbar when scrolling back up into intro
                 gsap.to("#navbar", { opacity: 0, duration: 0.3 });
             }
         }
     });
 
-    // 1. Open Lid
-    tl.to(".lid", {
+    // 1. Reveal Text & Open Laptop simultaneously
+    tl.to("#login-text", { opacity: 1, duration: 0.2 }) 
+      .to(".macbook", {
+          rotationX: 20, // Tilt base up to viewing angle
+          duration: 1.5,
+          ease: "power1.inOut"
+      }, "<")
+      .to(".lid", {
         rotationX: 0,
-        duration: 2,
+        duration: 1.5,
         ease: "power2.inOut"
-    })
-    // 2. FADE OUT TEXT (Login message) - Ensure blank screen before zoom
+    }, "<") // Sync with base tilt
+    
+    // 2. FADE OUT TEXT - Fast, before zoom hits hard
     .to("#login-text", {
         opacity: 0,
-        duration: 0.5
-    }, "-=0.5") 
-    // 3. Zoom into Screen (starts after text fades)
+        duration: 0.2
+    }, "-=0.2") 
+    
+    // 3. ZOOM 
     .to(".laptop-scene", {
-        scale: 60, // Massive scale to fly through screen
-        duration: 3,
-        ease: "power2.in", // Accelerate into the zoom
-    })
-    // 4. Fade out intro container for seamless transition
+        scale: 60, 
+        duration: 2,
+        ease: "power2.in", 
+    }, "-=0.1") 
+    
+    // 4. Fade out intro container
     .to("#intro-section", {
         opacity: 0,
         duration: 0.5,
         pointerEvents: "none"
-    }, "-=0.5")
+    }, "-=1.0") 
+    
     // 5. Show Hero Content
     .to("#hero-content", {
         opacity: 1,
-        duration: 1
-    });
+        duration: 0.8
+    }, "-=0.5");
 
     // Handle reload in middle of page
-    if (window.scrollY > 1500) {
+    if (window.scrollY > 800) {
         gsap.set("#intro-section", { display: "none" });
         gsap.set("#hero-content", { opacity: 1 });
         gsap.set("#navbar", { opacity: 1 });
