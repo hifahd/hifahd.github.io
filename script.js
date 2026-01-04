@@ -2,24 +2,21 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // -----------------------------------------------------------------------------
-// 1. Projects Rendering (with Load More)
+// 1. Projects Carousel
 // -----------------------------------------------------------------------------
-const projectsGrid = document.getElementById('projects-grid');
-const loadMoreBtn = document.getElementById('load-more-btn');
-const loadMoreContainer = document.getElementById('load-more-container');
-
-let projectsShown = 0;
-const INITIAL_PROJECTS = 6;
+const carouselContainer = document.getElementById('projects-carousel');
+const prevBtn = document.getElementById('prev-project');
+const nextBtn = document.getElementById('next-project');
 
 function createProjectCard(project, index) {
     return `
-        <div class="glass-card rounded-2xl overflow-hidden group h-full flex flex-col gs-reveal-up project-item" style="animation-delay: ${(index % 3) * 0.1}s">
-            <div class="relative h-56 overflow-hidden">
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col snap-center min-w-[85vw] md:min-w-[350px] lg:min-w-[400px] h-full">
+            <div class="relative h-56 overflow-hidden flex-shrink-0">
                 <div class="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors z-10"></div>
                 <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute top-4 right-4 z-20">
                     <span class="px-3 py-1 bg-black/90 backdrop-blur-md text-[10px] uppercase tracking-wider font-bold text-white rounded-full border border-white/20">
-                        ${index < 3 ? 'Featured' : 'Project'}
+                        Project
                     </span>
                 </div>
             </div>
@@ -39,113 +36,129 @@ function createProjectCard(project, index) {
     `;
 }
 
-function renderProjects(startIndex, count) {
-    if (!projectsGrid) return;
-    
-    const endIndex = Math.min(startIndex + count, projects.length);
-    const newProjects = projects.slice(startIndex, endIndex);
-    
-    const html = newProjects.map((project, i) => createProjectCard(project, startIndex + i)).join('');
-    
-    // If it's the first load, replace content. If 'Load More', append.
-    if (startIndex === 0) {
-        projectsGrid.innerHTML = html;
-    } else {
-        projectsGrid.insertAdjacentHTML('beforeend', html);
-        // Animate new items
-        gsap.fromTo('.project-item:not(.gs-reveal-up-initialized)', 
-            { y: 50, opacity: 0 },
-            { 
-                y: 0, 
-                opacity: 1, 
-                duration: 0.8, 
-                stagger: 0.1,
-                onComplete: function() {
-                    this.targets().forEach(t => t.classList.add('gs-reveal-up-initialized'));
-                }
-            }
-        );
-    }
-    
-    projectsShown = endIndex;
-    
-    // Handle button visibility
-    if (projectsShown >= projects.length) {
-        loadMoreContainer.classList.add('hidden');
-    } else {
-        loadMoreContainer.classList.remove('hidden');
+if (carouselContainer) {
+    // Render all projects
+    carouselContainer.innerHTML = projects.map((p, i) => createProjectCard(p, i)).join('');
+
+    // Scroll Logic
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            carouselContainer.scrollBy({ left: -420, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+            carouselContainer.scrollBy({ left: 420, behavior: 'smooth' });
+        });
     }
 }
 
-// Button Event Listener
-if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', () => {
-        renderProjects(projectsShown, 6); // Load 6 more
-    });
+// -----------------------------------------------------------------------------
+// 2. Full Skills Data & Rendering
+// -----------------------------------------------------------------------------
+const skillsCategories = [
+    {
+        title: "Programming Languages",
+        icon: "fas fa-code",
+        color: "text-blue-400",
+        skills: ["Python", "Java", "C/C++", "JavaScript", "SQL", "Dart", "PHP", "Verilog", "MATLAB"]
+    },
+    {
+        title: "Web Technologies",
+        icon: "fas fa-globe",
+        color: "text-purple-400",
+        skills: ["HTML5/CSS3", "Tailwind CSS", "React", "Laravel", "Flutter", "Flask", "FastAPI", "Streamlit", "Node.js", "Socket.io"]
+    },
+    {
+        title: "Data Science & ML",
+        icon: "fas fa-brain",
+        color: "text-pink-400",
+        skills: ["TensorFlow/Keras", "PyTorch", "Scikit-learn", "MLflow", "Optuna", "MediaPipe", "NumPy", "Pandas", "Matplotlib", "spaCy", "NLTK", "LangChain"]
+    },
+    {
+        title: "AI & Prompt Eng",
+        icon: "fas fa-robot",
+        color: "text-yellow-400",
+        skills: ["OpenAI API", "Claude", "DeepSeek", "RAG Systems", "Vector Embeddings", "DSPy", "ChromaDB", "Ollama", "Computer Vision", "NLP"]
+    },
+    {
+        title: "Tools & Cloud",
+        icon: "fas fa-cloud",
+        color: "text-cyan-400",
+        skills: ["Git/GitHub", "Docker", "GCP", "Firebase", "PostgreSQL", "MongoDB", "Neo4j", "Pinecone", "Selenium", "Undetected Chrome"]
+    },
+    {
+        title: "Specialized Tech",
+        icon: "fas fa-microchip",
+        color: "text-emerald-400",
+        skills: ["IoT (ESP32)", "ARKit/ARCore", "Unity3D", "AutoCAD", "Figma", "Wireshark", "Power BI", "Proteus"]
+    }
+];
+
+const skillsGrid = document.getElementById('skills-grid');
+
+if (skillsGrid) {
+    skillsGrid.innerHTML = skillsCategories.map(category => `
+        <div class="bg-black p-8 rounded-3xl border border-white/10 hover:border-white/30 transition-all duration-300 group">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center ${category.color}">
+                    <i class="${category.icon} text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white group-hover:text-primary-400 transition-colors">${category.title}</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                ${category.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            </div>
+        </div>
+    `).join('');
 }
 
 
 // -----------------------------------------------------------------------------
-// 2. GSAP Scroll Animations
+// 3. Type-on-Scroll for Headings
 // -----------------------------------------------------------------------------
-function initAnimations() {
-    gsap.utils.toArray('.gs-reveal-up').forEach(elem => {
-        gsap.fromTo(elem, 
-            { y: 60, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: elem,
-                    start: "top 85%",
-                }
-            }
-        );
-    });
+const typeOnScrollElements = document.querySelectorAll('.type-on-scroll');
 
-    gsap.utils.toArray('.gs-reveal-left').forEach(elem => {
-        gsap.fromTo(elem, 
-            { x: -50, opacity: 0 },
-            {
-                x: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: elem,
-                    start: "top 85%",
-                }
+const typingObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const el = entry.target;
+            const text = el.getAttribute('data-text');
+            if (text && !el.classList.contains('typed')) {
+                el.classList.add('typed', 'type-cursor'); // Add cursor
+                el.textContent = ''; // Clear initial text
+                typeEffect(el, text);
             }
-        );
+        }
     });
+}, { threshold: 0.5 });
 
-    gsap.utils.toArray('.gs-reveal-right').forEach(elem => {
-        gsap.fromTo(elem, 
-            { x: 50, opacity: 0 },
-            {
-                x: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: elem,
-                    start: "top 85%",
-                }
-            }
-        );
-    });
+typeOnScrollElements.forEach(el => typingObserver.observe(el));
+
+function typeEffect(element, text) {
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 50 + Math.random() * 50); // Random variance for realism
+        } else {
+            // Remove cursor after a delay
+            setTimeout(() => {
+                element.classList.remove('type-cursor');
+            }, 1000);
+        }
+    }
+    type();
 }
 
+
 // -----------------------------------------------------------------------------
-// 3. Advanced Typing Effect (Typing + Deleting)
+// 4. Hero Typing Loop
 // -----------------------------------------------------------------------------
 const typingPhrases = [
     "Software Engineer",
     "NUST Graduate",
-    "Problem Solver",
-    "Learner"
+    "Learner",
+    "Problem Solver"
 ];
 
 function typeWriterLoop(elementId, phrases) {
@@ -163,19 +176,17 @@ function typeWriterLoop(elementId, phrases) {
         if (isDeleting) {
             element.textContent = currentPhrase.substring(0, charIndex - 1);
             charIndex--;
-            typeSpeed = 50; // Deleting is faster
+            typeSpeed = 50;
         } else {
             element.textContent = currentPhrase.substring(0, charIndex + 1);
             charIndex++;
-            typeSpeed = 100; // Typing speed
+            typeSpeed = 100;
         }
 
         if (!isDeleting && charIndex === currentPhrase.length) {
-            // Finished typing phrase, pause before delete
             isDeleting = true;
             typeSpeed = 2000; 
         } else if (isDeleting && charIndex === 0) {
-            // Finished deleting, move to next phrase
             isDeleting = false;
             phraseIndex = (phraseIndex + 1) % phrases.length;
             typeSpeed = 500;
@@ -183,34 +194,46 @@ function typeWriterLoop(elementId, phrases) {
 
         setTimeout(loop, typeSpeed);
     }
-
     loop();
 }
 
 
 // -----------------------------------------------------------------------------
-// 4. Utility Logic
+// 5. Utility
 // -----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-    // Render initial projects
-    renderProjects(0, INITIAL_PROJECTS);
-
-    // Init Animations
-    initAnimations();
-
-    // Start Typing Loop
+    // Init Hero Typing
     typeWriterLoop("typing-text", typingPhrases);
 
-    // Navbar Scroll Effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('py-2');
-            navbar.classList.remove('py-4');
-        } else {
-            navbar.classList.add('py-4');
-            navbar.classList.remove('py-2');
-        }
+    // GSAP Fade Ins
+    gsap.utils.toArray('.gs-reveal-up').forEach(elem => {
+        gsap.fromTo(elem, 
+            { y: 60, opacity: 0 },
+            {
+                y: 0, opacity: 1, duration: 1, ease: "power3.out",
+                scrollTrigger: { trigger: elem, start: "top 85%" }
+            }
+        );
+    });
+
+    gsap.utils.toArray('.gs-reveal-left').forEach(elem => {
+        gsap.fromTo(elem, 
+            { x: -50, opacity: 0 },
+            {
+                x: 0, opacity: 1, duration: 1.2, ease: "power3.out",
+                scrollTrigger: { trigger: elem, start: "top 85%" }
+            }
+        );
+    });
+
+    gsap.utils.toArray('.gs-reveal-right').forEach(elem => {
+        gsap.fromTo(elem, 
+            { x: 50, opacity: 0 },
+            {
+                x: 0, opacity: 1, duration: 1.2, ease: "power3.out",
+                scrollTrigger: { trigger: elem, start: "top 85%" }
+            }
+        );
     });
 
     // Mobile Menu
@@ -237,22 +260,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     menuBtn.addEventListener('click', toggleMenu);
-    
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', toggleMenu);
-    });
-
-    // Scroll to Top
-    const scrollToTopBtn = document.getElementById('scroll-to-top');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
-            scrollToTopBtn.classList.remove('opacity-0', 'translate-y-10');
-        } else {
-            scrollToTopBtn.classList.add('opacity-0', 'translate-y-10');
-        }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 });

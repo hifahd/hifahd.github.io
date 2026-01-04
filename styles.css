@@ -36,17 +36,25 @@ body {
     animation: blink 1s step-end infinite;
 }
 
+/* Scrollbar Hide (Horizontal Carousel) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 /* Skill Tags */
 .skill-tag {
-    /* Using standard CSS to avoid VS Code warnings, matching your preference */
     display: inline-block;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    color: #cbd5e1; /* slate-300 */
+    color: #cbd5e1; 
     transition: all 0.2s ease-in-out;
     cursor: default;
 }
@@ -57,9 +65,8 @@ body {
     border-color: #ffffff;
 }
 
-/* Glass Card Hover Effects */
+/* Glass Card */
 .glass-card {
-    /* Darker background for the cards to sit nicely on black */
     background: linear-gradient(145deg, rgba(20, 20, 20, 0.8), rgba(10, 10, 10, 0.9));
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -68,8 +75,16 @@ body {
 
 .glass-card:hover {
     transform: translateY(-8px);
-    border-color: rgba(56, 189, 248, 0.4); /* Primary-400 */
+    border-color: rgba(56, 189, 248, 0.4); 
     box-shadow: 0 10px 40px -10px rgba(56, 189, 248, 0.15);
+}
+
+/* Typing Cursor for Headings */
+.type-cursor::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: #38bdf8;
+    margin-left: 4px;
 }
 
 /* Mobile Menu Transitions */
