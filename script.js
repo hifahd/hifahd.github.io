@@ -181,31 +181,67 @@ const skillsCategories = [
         title: "Web Technologies",
         icon: "fas fa-globe",
         color: "text-purple-400",
-        skills: ["HTML5/CSS3", "Tailwind CSS", "React", "Laravel", "Flutter", "Flask", "FastAPI", "Streamlit", "Node.js", "Socket.io"]
+        skills: ["HTML5/CSS3", "Tailwind CSS", "Markdown", "React", "Laravel", "Flutter", "Flask", "FastAPI", "Streamlit", "Node.js", "Socket.io", "WebSocket", "n8n"]
     },
     {
-        title: "Data Science & ML",
+        title: "Data Science & ML Libraries",
         icon: "fas fa-brain",
         color: "text-pink-400",
-        skills: ["TensorFlow/Keras", "PyTorch", "Scikit-learn", "MLflow", "Optuna", "MediaPipe", "NumPy", "Pandas", "Matplotlib", "spaCy", "NLTK", "LangChain"]
+        skills: ["TensorFlow/Keras", "PyTorch", "Scikit-learn", "MLflow", "Optuna", "MediaPipe", "NumPy", "Pandas", "Matplotlib", "Seaborn", "spaCy", "NLTK", "fuzzywuzzy", "statsmodels (ARIMA)", "LangChain", "LangGraph", "LangSmith", "DSPy", "ChromaDB", "Sentence-Transformers", "Ollama"]
     },
     {
-        title: "AI & Prompt Eng",
+        title: "AI & NLP Technologies",
         icon: "fas fa-robot",
         color: "text-yellow-400",
-        skills: ["OpenAI API", "Claude", "DeepSeek", "RAG Systems", "Vector Embeddings", "DSPy", "ChromaDB", "Ollama", "Computer Vision", "NLP"]
+        skills: ["Natural Language Processing (NLP)", "Computer Vision", "Pose Estimation", "Sentiment Analysis", "Named Entity Recognition (NER)", "Text Classification", "Recommendation Systems", "Time Series Analysis", "Anomaly Detection", "Pattern Recognition", "Hyperparameter Optimization", "Experiment Tracking", "Model Versioning", "Retrieval-Augmented Generation (RAG)", "Vector Embeddings", "Hybrid Search"]
     },
     {
-        title: "Tools & Cloud",
-        icon: "fas fa-cloud",
+        title: "Prompt Engineering",
+        icon: "fas fa-wand-magic-sparkles",
+        color: "text-indigo-400",
+        skills: ["Claude (Advanced)", "ChatGPT (Advanced)", "DeepSeek (Advanced)", "AI System Optimization", "Creative Content Generation"]
+    },
+    {
+        title: "Development Tools",
+        icon: "fas fa-tools",
         color: "text-cyan-400",
-        skills: ["Git/GitHub", "Docker", "GCP", "Firebase", "PostgreSQL", "MongoDB", "Neo4j", "Pinecone", "Selenium", "Undetected Chrome"]
+        skills: ["Git & GitHub", "GitHub Actions", "Visual Studio Code", "Docker", "Jupyter Notebooks", "Android Studio", "Selenium", "Undetected Chrome"]
     },
     {
-        title: "Specialized Tech",
+        title: "Mobile & AR Development",
+        icon: "fas fa-mobile-alt",
+        color: "text-green-400",
+        skills: ["Flutter", "AR Flutter Plugin", "ARKit (iOS)", "ARCore (Android)", "Unity3D"]
+    },
+    {
+        title: "IoT Development",
         icon: "fas fa-microchip",
-        color: "text-emerald-400",
-        skills: ["IoT (ESP32)", "ARKit/ARCore", "Unity3D", "AutoCAD", "Figma", "Wireshark", "Power BI", "Proteus"]
+        color: "text-orange-400",
+        skills: ["ESP32 Programming", "Sensor Integration", "ThingSpeak Cloud Platform", "Real-time Monitoring", "Webhooks"]
+    },
+    {
+        title: "Security & Cryptography",
+        icon: "fas fa-shield-alt",
+        color: "text-red-400",
+        skills: ["Authentication Systems", "Trust Scoring", "Multi-level Encryption", "Penetration Testing", "Dynamic Trust Mechanisms", "File Encryption", "Secure Data Transmission"]
+    },
+    {
+        title: "APIs & Data Formats",
+        icon: "fas fa-plug",
+        color: "text-teal-400",
+        skills: ["RESTful APIs", "Apollo.io API", "Firebase API", "Hunter.io API", "JSON", "LeadRocks API", "NewsAPI", "OpenAI API", "Regular Expressions", "Snov.io API", "Telegram Bot API", "Webhook Implementation", "Yahoo Finance API"]
+    },
+    {
+        title: "Cloud & Database",
+        icon: "fas fa-cloud",
+        color: "text-sky-400",
+        skills: ["Google Cloud Platform", "Microsoft Power BI", "Firebase", "Cloud Firestore", "MySQL", "MongoDB", "PostgreSQL", "Neo4j", "Pinecone", "Redis", "Render", "SQLite", "Supabase", "ThingSpeak IoT Cloud"]
+    },
+    {
+        title: "3D Modeling & Design",
+        icon: "fas fa-cube",
+        color: "text-violet-400",
+        skills: ["AutoCAD", "Autodesk Inventor", "Figma", "Arduino IDE", "Proteus Simulation", "ModelSim", "Blender", "Cisco Packet Tracer", "Wireshark"]
     }
 ];
 
