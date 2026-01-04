@@ -1,193 +1,247 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-.animate-gradient {
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+/* Base settings */
+html {
+    scroll-behavior: smooth;
 }
 
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.card-hover {
-    transition: all 0.3s ease-in-out;
-}
-
-.card-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.section-padding {
-    padding-top: 5rem;
-}
-
-.fade-in-section {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in-section.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: linear-gradient(to right, #3b82f6, #1d4ed8);
-    z-index: 9999;
-}
-
-#scroll-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #3b82f6;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-#scroll-to-top.visible {
-    opacity: 1;
-}
-
-#typed-description span {
-    border-right: .05em solid;
-    animation: caret 1s steps(1) infinite;
-}
-
-@keyframes caret {
-    50% {
-        border-color: transparent;
-    }
-}
-
-.scroll-mt {
-    scroll-margin-top: 6rem;
-    /* Adjust this value as needed */
-}
-
-.project-carousel {
+body.modal-open {
     overflow: hidden;
 }
 
-.project-carousel-inner {
-    display: flex;
-    transition: transform 0.3s ease-in-out;
+/* ----------------------------- */
+/* 3D Laptop Styles              */
+/* ----------------------------- */
+
+.perspective-2000 {
+    perspective: 2000px;
 }
 
-.project-card {
-    flex: 0 0 100%;
-    padding: 1rem;
+.transform-style-3d {
+    transform-style: preserve-3d;
 }
 
-@media (min-width: 640px) {
-    .project-card {
-        flex: 0 0 50%;
+.laptop-scene {
+    width: 600px;
+    height: 380px;
+    position: relative;
+    transform: scale(0.6);
+}
+
+@media (min-width: 768px) {
+    .laptop-scene {
+        transform: scale(1);
     }
 }
 
-@media (min-width: 1024px) {
-    .project-card {
-        flex: 0 0 33.333333%;
-    }
-}
-
-#prevProject,
-#nextProject {
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-#prevProject:hover,
-#nextProject:hover {
-    opacity: 1;
-}
-
-.project-card {
-    flex: 0 0 100%;
-    padding: 1rem;
-    height: 600px;
-    /* Set a fixed height for all cards */
-}
-
-@media (min-width: 640px) {
-    .project-card {
-        flex: 0 0 50%;
-    }
-}
-
-@media (min-width: 1024px) {
-    .project-card {
-        flex: 0 0 33.333333%;
-    }
-}
-
-.project-card-inner {
+.macbook {
+    width: 100%;
     height: 100%;
+    position: relative;
+    /* KEY CHANGE: 0deg rotation means we look straight at the front edge (closed) */
+    transform: rotateX(0deg); 
+}
+
+/* --- LID (High Quality) --- */
+.lid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 380px;
+    transform-origin: bottom;
+    /* Closed flat against base */
+    transform: rotateX(-84.5deg);
+}
+
+.lid-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #0d0d0d;
+    border-radius: 18px 18px 0 0;
+    border: 1px solid #333;
+    overflow: hidden;
+    transform: translateZ(1px); 
+}
+
+.lid-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2b2b2b 0%, #1a1a1a 100%);
+    border-radius: 18px 18px 0 0;
+    transform: rotateY(180deg) translateZ(1px);
+}
+
+/* Bezel */
+.screen-bezel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+    border-radius: 16px 16px 0 0;
+    padding: 12px 12px 0 12px;
+}
+
+/* Screen Notch */
+.camera-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 18px;
+    background: black;
+    border-radius: 0 0 8px 8px;
+    z-index: 20;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.project-card-description {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding-right: 10px;
-    /* Add some padding for the scrollbar */
-}
-
-/* Custom scrollbar styles */
-.project-card-description::-webkit-scrollbar {
+.camera-lens {
     width: 6px;
+    height: 6px;
+    background: #1a1a2e;
+    border-radius: 50%;
+    box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
 }
 
-.project-card-description::-webkit-scrollbar-track {
-    background: #2d3748;
+/* Actual Screen */
+.screen-content {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    overflow: hidden;
 }
 
-.project-card-description::-webkit-scrollbar-thumb {
-    background-color: #4a5568;
-    border-radius: 3px;
+/* --- BASE (Simple Slab Restored) --- */
+.macbook-base {
+    position: absolute;
+    top: 380px; /* Positioned slightly below lid pivot to prevent overlap */
+    left: 50%;
+    transform: translateX(-50%) translateZ(-10px);
+    width: 715px; /* Wider to match lid when viewed in perspective */
+    height: 18px; /* Simple thickness */
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    transform-style: preserve-3d;
 }
 
-.achievement-list {
-    list-style-type: none;
-    padding-left: 0;
+.macbook-base-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid #333;
 }
 
-.achievement-list li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
+.macbook-opener-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 8px;
+    background: #151515;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid #222;
+    border-top: none;
 }
 
-.achievement-list li::before {
-    content: "•";
-    color: #9ca3af;
-    /* Tailwind's text-gray-400 */
-    font-size: 1.25em;
-    margin-right: 0.5rem;
-    flex-shrink: 0;
+/* ----------------------------- */
+/* General Animations            */
+/* ----------------------------- */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulse-slow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 8s infinite ease-in-out;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.animate-blink {
+    animation: blink 1s step-end infinite;
+}
+
+/* Scrollbar Hide */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Skill Tags */
+.skill-tag {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #cbd5e1; 
+    transition: all 0.2s ease-in-out;
+    cursor: default;
+}
+
+.skill-tag:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+/* Glass Card */
+.glass-card {
+    background: linear-gradient(145deg, rgba(20, 20, 20, 0.8), rgba(10, 10, 10, 0.9));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(56, 189, 248, 0.4); 
+    box-shadow: 0 10px 40px -10px rgba(56, 189, 248, 0.15);
+}
+
+/* Typing Cursor */
+.type-cursor::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: #38bdf8;
+    margin-left: 4px;
+}
+
+#mobile-menu {
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
 }
