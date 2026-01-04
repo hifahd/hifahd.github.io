@@ -127,13 +127,13 @@ body.modal-open {
 .macbook-base {
     position: absolute;
     top: 380px; /* Aligned with bottom of lid */
-    left: 0;
-    width: 600px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(-2px);
+    width: 700px; /* Wider to match lid when viewed in perspective */
     height: 20px; /* Simple thickness */
     background: #1a1a1a;
     border-radius: 0 0 20px 20px;
     transform-style: preserve-3d;
-    transform: translateZ(-2px); 
 }
 
 .macbook-base-top {
