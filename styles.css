@@ -1,193 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-.animate-gradient {
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+/* Base settings */
+html {
+    scroll-behavior: smooth;
 }
 
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.card-hover {
-    transition: all 0.3s ease-in-out;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.card-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+.animate-fade-in-up {
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.section-padding {
-    padding-top: 5rem;
+@keyframes pulse-slow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
 }
 
-.fade-in-section {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+.animate-pulse-slow {
+    animation: pulse-slow 8s infinite ease-in-out;
 }
 
-.fade-in-section.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
-#progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: linear-gradient(to right, #3b82f6, #1d4ed8);
-    z-index: 9999;
+.animate-blink {
+    animation: blink 1s step-end infinite;
 }
 
-#scroll-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #3b82f6;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+/* Skill Tags */
+.skill-tag {
+    @apply px-4 py-2 bg-white/5 border border-white/5 rounded-lg text-sm font-medium text-slate-300 hover:bg-white hover:text-dark-950 transition-all cursor-default;
 }
 
-#scroll-to-top.visible {
-    opacity: 1;
+/* Glass Card Hover Effects */
+.glass-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(15, 23, 42, 0.4));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-#typed-description span {
-    border-right: .05em solid;
-    animation: caret 1s steps(1) infinite;
+.glass-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
-@keyframes caret {
-    50% {
-        border-color: transparent;
-    }
-}
-
-.scroll-mt {
-    scroll-margin-top: 6rem;
-    /* Adjust this value as needed */
-}
-
-.project-carousel {
-    overflow: hidden;
-}
-
-.project-carousel-inner {
-    display: flex;
-    transition: transform 0.3s ease-in-out;
-}
-
-.project-card {
-    flex: 0 0 100%;
-    padding: 1rem;
-}
-
-@media (min-width: 640px) {
-    .project-card {
-        flex: 0 0 50%;
-    }
-}
-
-@media (min-width: 1024px) {
-    .project-card {
-        flex: 0 0 33.333333%;
-    }
-}
-
-#prevProject,
-#nextProject {
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-#prevProject:hover,
-#nextProject:hover {
-    opacity: 1;
-}
-
-.project-card {
-    flex: 0 0 100%;
-    padding: 1rem;
-    height: 600px;
-    /* Set a fixed height for all cards */
-}
-
-@media (min-width: 640px) {
-    .project-card {
-        flex: 0 0 50%;
-    }
-}
-
-@media (min-width: 1024px) {
-    .project-card {
-        flex: 0 0 33.333333%;
-    }
-}
-
-.project-card-inner {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-card-description {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding-right: 10px;
-    /* Add some padding for the scrollbar */
-}
-
-/* Custom scrollbar styles */
-.project-card-description::-webkit-scrollbar {
-    width: 6px;
-}
-
-.project-card-description::-webkit-scrollbar-track {
-    background: #2d3748;
-}
-
-.project-card-description::-webkit-scrollbar-thumb {
-    background-color: #4a5568;
-    border-radius: 3px;
-}
-
-.achievement-list {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.achievement-list li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
-}
-
-.achievement-list li::before {
-    content: "•";
-    color: #9ca3af;
-    /* Tailwind's text-gray-400 */
-    font-size: 1.25em;
-    margin-right: 0.5rem;
-    flex-shrink: 0;
+/* Mobile Menu Transitions */
+#mobile-menu {
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
 }

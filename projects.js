@@ -1,24 +1,112 @@
 const projects = [
-    { title: "Advanced Personal Knowledge Assistant: RAG System", description: "Built a production-ready Retrieval-Augmented Generation system with hybrid search combining semantic and keyword matching, achieving enhanced retrieval accuracy through weighted scoring algorithms. Implemented advanced conversation memory and adaptive chunking strategies with document-type detection for optimized context preservation and intelligent document processing. Deployed local LLM integration with vector embeddings for privacy-focused document analysis, supporting multiple file formats with comprehensive source attribution and real-time query processing.<br><span class='text-sm text-gray-400'>Personal Project, July 2025</span>", image: "images/rag.webp" },
-    { title: "Stock Market Prediction MLOps Pipeline: Production-Ready AI Trading System", description: "Built a comprehensive end-to-end MLOps pipeline for stock market prediction using Python, featuring automated data collection from Yahoo Finance API, sophisticated feature engineering with 146+ technical indicators (RSI, MACD, Bollinger Bands), and hyperparameter optimization using Optuna. Implemented production-grade monitoring with data drift detection, model performance tracking, and automated retraining capabilities. Deployed an interactive Streamlit web application with real-time predictions, achieving 81.7% AUC score on financial forecasting. Integrated MLflow for experiment tracking, time-series cross-validation, and comprehensive model versioning, demonstrating enterprise-level machine learning engineering skills.<br><span class='text-sm text-gray-400'>Personal Project, June 2025</span>", image: "images/mlops.webp" },
-    { title: "Next-Gen Prosthetics: AR Customization and Visualization App", description: "Developed a groundbreaking Augmented Reality application that integrates MediaPipe-powered pose estimation with real-time AR visualization for prosthetic limb customization. Built using Flutter with ARCore/ARKit integration, the system features automated body measurement algorithms, age-adaptive scaling for personalized prosthetic sizing, and immersive 3D model visualization. Achieved clinical-grade measurement accuracy within ±1.2cm, maintained stable AR rendering at 28+ FPS, and received positive validation from healthcare professionals across multiple medical specialties. Implemented comprehensive configuration management, cross-platform compatibility, and real-time prosthetic customization capabilities, addressing critical gaps in traditional prosthetic fitting processes and significantly enhancing patient engagement in the design workflow.<br><span class='text-sm text-gray-400'>Final Year Design Project @ NUST, May 2025</span>", image: "images/prosthetics.webp" },
-    { title: "SecureAdaptive: Dynamic File Security System", description: "Developed an innovative secure file storage system with adaptive security mechanisms using Python Flask and SQLite. Implemented a novel trust score system that dynamically adjusts user privileges based on behavior patterns, providing robust authentication and intelligent access control. Features include multi-level file encryption, pattern-based authentication, real-time security monitoring, and comprehensive activity logging. Successfully demonstrated security resilience through penetration testing of multiple attack vectors.<br><span class='text-sm text-gray-400'>NUST, December 2024</span>", image: "images/secure-storage.webp" },
-    { title: "IoT-based Weather Station: Environmental Monitoring System", description: "Developed a comprehensive IoT weather monitoring solution integrating hardware sensors with cloud analytics. Built with ESP32 microcontroller, DHT22 sensor, and ThingSpeak cloud platform for real-time environmental tracking. Implemented advanced analytics including machine learning models for pattern recognition, anomaly detection, and ARIMA-based forecasting. Features included real-time alerts through webhook integration, mobile application support, and comprehensive data visualization.<br><span class='text-sm text-gray-400'>NUST, December 2024</span>", image: "images/weather-station.webp" },
-    { title: "SmartFeed: AI-Driven Personalized News Aggregator", description: "Developed an advanced AI-powered news aggregator using Python Flask for the backend and React for the frontend. Implemented natural language processing techniques including sentiment analysis, named entity recognition, and topic modeling using libraries such as NLTK and spaCy. Integrated with NewsAPI for real-time news fetching and utilized MongoDB for efficient data storage. Featured user authentication, personalized news recommendations, and infinite scrolling for seamless user experience. Demonstrated proficiency in full-stack development, AI integration, and creating responsive web applications.<br><span class='text-sm text-gray-400'>Personal Project, September 2024</span>", image: "images/news.webp" },
-    { title: "AI-Powered Chatbot", description: "Developed an advanced NLP-based chatbot using Python. Implemented intent recognition, entity extraction, and integrated with a complex API backend. Utilized spaCy for NLP tasks, custom pattern matching, and fuzzy matching for improved intent classification. Integrated with Telegram for user interaction.<br><span class='text-sm text-gray-400'>nanoVoltz, August 2024</span>", image: "images/chatbot.webp" },
-    { title: "Power BI Dashboards", description: "Designed and implemented interactive Power BI dashboards for various departments at ADNOC Group, enhancing data visibility and decision-making processes. Incorporated AI, ML, and NLP technologies for advanced analytics.<br><span class='text-sm text-gray-400'>ADNOC Group, July 2024</span>", image: "images/powerbi.webp" },
-    { title: "Emotion Detection through Facial Expressions", description: "Developed an advanced emotion detection system using deep learning, employing CNNs (VGG16, ResNet50V2, and custom architectures) on the FER2013 dataset, achieving 87.7% accuracy with an optimized VGG16 model. Implemented comprehensive data preprocessing, transfer learning techniques, and model evaluation, exploring applications in human-computer interaction, virtual reality, and mental health monitoring.<br><span class='text-sm text-gray-400'>NUST, May 2024</span>", image: "images/emotion.webp" },
-    { title: "Pitlane Pulse Formula 1 Chatbot Assistant App", description: "Designed and prototyped PitLane Pulse, a comprehensive Formula 1 companion mobile application using Figma. Developed high-fidelity UI/UX designs incorporating real-time race updates, driver statistics, and interactive features like polls and personalized garages, while adhering to HCI principles for optimal user experience and engagement.<br><span class='text-sm text-gray-400'>NUST, May 2024</span>", image: "images/f1.webp" },
-    { title: "Water Consumption & Quality Monitoring System", description: "Developed a Water Consumption & Quality Monitoring System utilizing the Uppaal Model Checker for designing and verifying automata. Tested various properties to ensure the system accurately monitored and maintained water quality and usage standards.<br><span class='text-sm text-gray-400'>NUST, May 2024</span>", image: "images/water.webp" },
-    { title: "Microcontroller-Based DC Motor Speed Control System", description: "Designed and implemented an 8051 microcontroller-based project for precise DC motor speed control using ADC and PWM techniques. Developed a system that converts analog input from a variable resistor to digital signals, controls motor speed, and displays real-time speed data on an LCD, demonstrating proficiency in embedded systems and motor control applications.<br><span class='text-sm text-gray-400'>NUST, January 2024</span>", image: "images/motor.webp" },
-    { title: "PrivX - Privacy-Focused Social Platform", description: "Developed PrivX, a transformative social networking application aimed at revolutionizing digital interactions in Pakistan by prioritizing user privacy and freedom of expression. Implemented end-to-end encryption, decentralized moderation, and real-time communication features using React, TypeScript, and Firebase technologies to create a secure and empowering community-driven platform.<br><span class='text-sm text-gray-400'>NUST, January 2024</span>", image: "images/privx.webp" },
-    { title: "PHARMA: Digital Healthcare Management System for Punjab Public Hospitals", description: "Proposed PHARMA (Punjab Health And Resource Management App), a comprehensive mobile application concept aimed at improving accountability and resource management in public hospitals across Punjab. The proposal outlined three interconnected views (Admin, Hospital, and Patient Complaint Portal) designed to streamline operations, enhance transparency, and ultimately improve healthcare access and quality for low-income families.<br><span class='text-sm text-gray-400'>NUST, January 2024</span>", image: "images/hospital.webp" },
-    { title: "Zash - E-commerce Platform for Authentic Makeup Products", description: "Developed Zash, a secure e-commerce platform specializing in authentic makeup products, using Laravel framework, MySQL, and Bootstrap. Implemented features for product authenticity verification, secure transactions, and an intuitive user interface, while utilizing MVC architecture and incorporating testing frameworks like Locust and PHPUnit for robust quality assurance.<br><span class='text-sm text-gray-400'>NUST, January 2024</span>", image: "images/makeup.webp" },
-    { title: "Nuvexa Photos: Cloud-Based Photos Storage Solution", description: "Developed a microservices-based web application using React, Node.js, and MongoDB, deployed on a Google Cloud Platform (GCP) Kubernetes cluster. Integrated Skaffold for Continuous Integration/Continuous Deployment (CI/CD) automation and utilized Locust for load testing to ensure high performance and scalability.<br><span class='text-sm text-gray-400'>NUST, January 2024</span>", image: "images/cloud.webp" },
-    { title: "Network Path Optimization Simulator", description: "Developed a Python-based network simulation tool using NetworkX to model and analyze complex network topologies with 100 nodes. Implemented algorithms to calculate optimal paths, measure network performance metrics, and visualize results, demonstrating proficiency in graph theory and network optimization techniques.<br><span class='text-sm text-gray-400'>NUST, January 2023</span>", image: "images/network.webp" },
-    { title: "Inventory Management System", description: "Developed a desktop-based inventory management system using Java, featuring a graphical user interface designed with Swing and a MySQL database for backend management. Implemented Java Database Connectivity (JDBC) for seamless database integration, enabling efficient handling of products, customers, suppliers, and transactions for small to mid-sized retail stores.<br><span class='text-sm text-gray-400'>NUST, January 2023</span>", image: "images/inventory.webp" },
-    { title: "Blockchain-based Degree and Resume Verification System", description: "Conceptualized and designed a blockchain-based solution for verifying educational degrees and professional resumes, aiming to streamline the credential verification process. Developed a comprehensive system architecture incorporating smart contracts, cryptography, and decentralized data storage to ensure secure, transparent, and efficient verification for employers, job seekers, and educational institutions.<br><span class='text-sm text-gray-400'>NUST, December 2022</span>", image: "images/blockchain.webp" },
-    { title: "Interactive Game of Chess", description: "Created a fully functioning interactive chess game using Java Swing, encompassing both the game logic and the graphical user interface. Designed and implemented all features to facilitate a complete and engaging chess-playing experience.<br><span class='text-sm text-gray-400'>NUST, July 2022</span>", image: "images/chess.webp" },
-    { title: "AutoCAD-based Arbor Press Design", description: "Engineered and designed a fully functional arbor press from scratch using AutoCAD Inventor, demonstrating proficiency in 3D modeling and mechanical design principles. The project involved comprehensive planning, precise dimensioning, and virtual assembly of all components to create a practical and efficient pressing tool.<br><span class='text-sm text-gray-400'>NUST, June 2022</span>", image: "images/press.webp" },
-    { title: "Python-based Train Reservation System", description: "Developed a comprehensive train reservation system using Python, featuring a Tkinter GUI for user-friendly interactions. Implemented functionalities for booking creation, modification, and cancellation, integrating age-based discounts, seat selection, and data persistence using file handling, while ensuring robust error handling and user input validation.<br><span class='text-sm text-gray-400'>NUST, March 2022</span>", image: "images/train.webp" }
+    { 
+        title: "Advanced Personal Knowledge Assistant: RAG System", 
+        description: "Built a production-ready Retrieval-Augmented Generation system with hybrid search combining semantic and keyword matching, achieving enhanced retrieval accuracy through weighted scoring algorithms. Implemented advanced conversation memory and adaptive chunking strategies.", 
+        image: "images/rag.webp" 
+    },
+    { 
+        title: "Stock Market Prediction MLOps Pipeline", 
+        description: "Built a comprehensive end-to-end MLOps pipeline for stock market prediction using Python, featuring automated data collection from Yahoo Finance API, sophisticated feature engineering with 146+ technical indicators, and hyperparameter optimization using Optuna.", 
+        image: "images/mlops.webp" 
+    },
+    { 
+        title: "Next-Gen Prosthetics: AR Customization App", 
+        description: "Developed a groundbreaking Augmented Reality application that integrates MediaPipe-powered pose estimation with real-time AR visualization for prosthetic limb customization. Built using Flutter with ARCore/ARKit integration.", 
+        image: "images/prosthetics.webp" 
+    },
+    { 
+        title: "SecureAdaptive: Dynamic File Security System", 
+        description: "Developed an innovative secure file storage system with adaptive security mechanisms using Python Flask and SQLite. Implemented a novel trust score system that dynamically adjusts user privileges based on behavior patterns.", 
+        image: "images/secure-storage.webp" 
+    },
+    { 
+        title: "IoT-based Weather Station", 
+        description: "Developed a comprehensive IoT weather monitoring solution integrating hardware sensors with cloud analytics. Built with ESP32 microcontroller, DHT22 sensor, and ThingSpeak cloud platform for real-time environmental tracking.", 
+        image: "images/weather-station.webp" 
+    },
+    { 
+        title: "SmartFeed: AI-Driven News Aggregator", 
+        description: "Developed an advanced AI-powered news aggregator using Python Flask for the backend and React for the frontend. Implemented natural language processing techniques including sentiment analysis, named entity recognition, and topic modeling.", 
+        image: "images/news.webp" 
+    },
+    { 
+        title: "AI-Powered Chatbot", 
+        description: "Developed an advanced NLP-based chatbot using Python. Implemented intent recognition, entity extraction, and integrated with a complex API backend. Utilized spaCy for NLP tasks.", 
+        image: "images/chatbot.webp" 
+    },
+    { 
+        title: "Power BI Dashboards", 
+        description: "Designed and implemented interactive Power BI dashboards for various departments at ADNOC Group, enhancing data visibility and decision-making processes.", 
+        image: "images/powerbi.webp" 
+    },
+    { 
+        title: "Emotion Detection via Facial Expressions", 
+        description: "Developed an advanced emotion detection system using deep learning, employing CNNs (VGG16, ResNet50V2) on the FER2013 dataset, achieving 87.7% accuracy with an optimized VGG16 model.", 
+        image: "images/emotion.webp" 
+    },
+    { 
+        title: "Pitlane Pulse Formula 1 App", 
+        description: "Designed and prototyped PitLane Pulse, a comprehensive Formula 1 companion mobile application using Figma. Developed high-fidelity UI/UX designs incorporating real-time race updates.", 
+        image: "images/f1.webp" 
+    },
+    { 
+        title: "PrivX - Privacy-Focused Social Platform", 
+        description: "Developed PrivX, a transformative social networking application aimed at revolutionizing digital interactions in Pakistan by prioritizing user privacy and freedom of expression.", 
+        image: "images/privx.webp" 
+    },
+    { 
+        title: "Network Path Optimization Simulator", 
+        description: "Developed a Python-based network simulation tool using NetworkX to model and analyze complex network topologies with 100 nodes. Implemented algorithms to calculate optimal paths.", 
+        image: "images/network.webp" 
+    },
+    { 
+        title: "Water Consumption & Quality Monitor", 
+        description: "Developed a Water Consumption & Quality Monitoring System utilizing the Uppaal Model Checker for designing and verifying automata. Tested various properties to ensure the system accurately monitored and maintained water quality.", 
+        image: "images/water.webp" 
+    },
+    { 
+        title: "Microcontroller DC Motor Control", 
+        description: "Designed and implemented an 8051 microcontroller-based project for precise DC motor speed control using ADC and PWM techniques. Developed a system that converts analog input from a variable resistor to digital signals.", 
+        image: "images/motor.webp" 
+    },
+    { 
+        title: "PHARMA: Digital Healthcare System", 
+        description: "Proposed PHARMA, a comprehensive mobile application concept aimed at improving accountability and resource management in public hospitals across Punjab.", 
+        image: "images/hospital.webp" 
+    },
+    { 
+        title: "Zash - E-commerce Platform", 
+        description: "Developed Zash, a secure e-commerce platform specializing in authentic makeup products, using Laravel framework, MySQL, and Bootstrap.", 
+        image: "images/makeup.webp" 
+    },
+    { 
+        title: "Nuvexa Photos: Cloud Storage", 
+        description: "Developed a microservices-based web application using React, Node.js, and MongoDB, deployed on a Google Cloud Platform (GCP) Kubernetes cluster.", 
+        image: "images/cloud.webp" 
+    },
+    { 
+        title: "Inventory Management System", 
+        description: "Developed a desktop-based inventory management system using Java, featuring a graphical user interface designed with Swing and a MySQL database.", 
+        image: "images/inventory.webp" 
+    },
+    { 
+        title: "Blockchain Degree Verification", 
+        description: "Conceptualized and designed a blockchain-based solution for verifying educational degrees and professional resumes, aiming to streamline the credential verification process.", 
+        image: "images/blockchain.webp" 
+    },
+    { 
+        title: "Interactive Game of Chess", 
+        description: "Created a fully functioning interactive chess game using Java Swing, encompassing both the game logic and the graphical user interface.", 
+        image: "images/chess.webp" 
+    },
+    { 
+        title: "AutoCAD-based Arbor Press", 
+        description: "Engineered and designed a fully functional arbor press from scratch using AutoCAD Inventor, demonstrating proficiency in 3D modeling and mechanical design principles.", 
+        image: "images/press.webp" 
+    },
+    { 
+        title: "Python Train Reservation System", 
+        description: "Developed a comprehensive train reservation system using Python, featuring a Tkinter GUI for user-friendly interactions. Implemented functionalities for booking creation and modification.", 
+        image: "images/train.webp" 
+    }
 ];
