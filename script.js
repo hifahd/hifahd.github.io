@@ -184,16 +184,34 @@ const skillsCategories = [
         skills: ["HTML5/CSS3", "Tailwind CSS", "Markdown", "React", "Laravel", "Flutter", "Flask", "FastAPI", "Streamlit", "Node.js", "Socket.io", "WebSocket", "n8n"]
     },
     {
-        title: "Data Science & ML Libraries",
+        title: "Machine Learning & Deep Learning",
         icon: "fas fa-brain",
         color: "text-pink-400",
-        skills: ["TensorFlow/Keras", "PyTorch", "Scikit-learn", "MLflow", "Optuna", "MediaPipe", "NumPy", "Pandas", "Matplotlib", "Seaborn", "spaCy", "NLTK", "fuzzywuzzy", "statsmodels (ARIMA)", "LangChain", "LangGraph", "LangSmith", "DSPy", "ChromaDB", "Sentence-Transformers", "Ollama"]
+        skills: ["TensorFlow/Keras", "PyTorch", "Scikit-learn", "MLflow", "Optuna", "MediaPipe"]
     },
     {
-        title: "AI & NLP Technologies",
+        title: "Data Science & Analysis",
+        icon: "fas fa-chart-line",
+        color: "text-emerald-400",
+        skills: ["NumPy", "Pandas", "Matplotlib", "Seaborn", "spaCy", "NLTK", "fuzzywuzzy", "statsmodels (ARIMA)"]
+    },
+    {
+        title: "LLM & RAG Technologies",
+        icon: "fas fa-network-wired",
+        color: "text-violet-400",
+        skills: ["LangChain", "LangGraph", "LangSmith", "DSPy", "ChromaDB", "Sentence-Transformers", "Ollama"]
+    },
+    {
+        title: "AI/ML Capabilities",
         icon: "fas fa-robot",
         color: "text-yellow-400",
-        skills: ["Natural Language Processing (NLP)", "Computer Vision", "Pose Estimation", "Sentiment Analysis", "Named Entity Recognition (NER)", "Text Classification", "Recommendation Systems", "Time Series Analysis", "Anomaly Detection", "Pattern Recognition", "Hyperparameter Optimization", "Experiment Tracking", "Model Versioning", "Retrieval-Augmented Generation (RAG)", "Vector Embeddings", "Hybrid Search"]
+        skills: ["Natural Language Processing (NLP)", "Computer Vision", "Pose Estimation", "Sentiment Analysis", "Named Entity Recognition (NER)", "Text Classification", "Recommendation Systems", "Time Series Analysis", "Anomaly Detection", "Pattern Recognition"]
+    },
+    {
+        title: "Advanced AI & MLOps",
+        icon: "fas fa-cogs",
+        color: "text-amber-400",
+        skills: ["Hyperparameter Optimization", "Experiment Tracking", "Model Versioning", "Retrieval-Augmented Generation (RAG)", "Vector Embeddings", "Hybrid Search"]
     },
     {
         title: "Prompt Engineering",
@@ -208,16 +226,10 @@ const skillsCategories = [
         skills: ["Git & GitHub", "GitHub Actions", "Visual Studio Code", "Docker", "Jupyter Notebooks", "Android Studio", "Selenium", "Undetected Chrome"]
     },
     {
-        title: "Mobile & AR Development",
+        title: "Mobile, AR & IoT",
         icon: "fas fa-mobile-alt",
         color: "text-green-400",
-        skills: ["Flutter", "AR Flutter Plugin", "ARKit (iOS)", "ARCore (Android)", "Unity3D"]
-    },
-    {
-        title: "IoT Development",
-        icon: "fas fa-microchip",
-        color: "text-orange-400",
-        skills: ["ESP32 Programming", "Sensor Integration", "ThingSpeak Cloud Platform", "Real-time Monitoring", "Webhooks"]
+        skills: ["Flutter", "AR Flutter Plugin", "ARKit (iOS)", "ARCore (Android)", "Unity3D", "ESP32 Programming", "Sensor Integration", "ThingSpeak Cloud Platform", "Real-time Monitoring", "Webhooks"]
     },
     {
         title: "Security & Cryptography",
@@ -240,7 +252,7 @@ const skillsCategories = [
     {
         title: "3D Modeling & Design",
         icon: "fas fa-cube",
-        color: "text-violet-400",
+        color: "text-rose-400",
         skills: ["AutoCAD", "Autodesk Inventor", "Figma", "Arduino IDE", "Proteus Simulation", "ModelSim", "Blender", "Cisco Packet Tracer", "Wireshark"]
     }
 ];
